@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var _typesEnum = require('../constants').decals;
+var _typesEnum = require('../constants').getDecals();
 
 var currentOccupencySchema = new mongoose.Schema({
   time: { type: Date, required: true },

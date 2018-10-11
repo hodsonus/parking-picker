@@ -2,7 +2,7 @@ var getSession = require('../util/session');
 var User = require('../mongo/user');
 
 module.exports = function(req, res, next) {
-  if (!req.headers.Authorization || !req.headers[]) {
+  if (!req.headers.Authorization) {
     req.user = { error: { message: 'invalid authorization' } };
     return next();
   }

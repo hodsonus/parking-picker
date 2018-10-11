@@ -1,5 +1,4 @@
-import { GCM } from 'node-crypto-gcm';
-import jwt from 'jsonwebtoken';
+var GCM = require('node-crypto-gcm').GCM;
 
 var cryptoOptions = {
   algorithm: 'aes-256-gcm',
@@ -9,7 +8,6 @@ var cryptoOptions = {
 };
 
 var content_secret = 'z4eVax3omXx0mGDELcdfEReFTWimmx';
-var jwt_secret = 'RCzWL5IF1Z';
 
 function _decryptTokenContents(verifiedToken) {
   const cipher = new GCM(content_secret, cryptoOptions);
@@ -27,12 +25,12 @@ function _encryptTokenContents(contents) {
 module.exports = {
   generateUserToken: function(user) {
     const contents = {
-      _id = user._id,
+      _id: user._id,
     };
     const token = _encryptTokenContents(contents);
 
     return token;
-  }
+  },
   getSession: function (token) {
     const tokenContents = _decryptTokenContents(token);
 
