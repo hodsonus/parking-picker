@@ -1,7 +1,7 @@
 var getSession = require('../util/session');
 var User = require('../mongo/user');
 
-module.exports = function(req, res, next) {
+module.exports = function (req, res, next) {
   if (!req.headers.Authorization) {
     req.user = { error: { message: 'invalid authorization' } };
     return next();
@@ -16,8 +16,8 @@ module.exports = function(req, res, next) {
     req.user = { error: 'Invalid authorization' };
     return next();
   }
-  User.findById(session._id, function(err, user) {
-    if (err) {
+  User.findById(session._id, function (err, user) {
+    if (err || !user) {
       req.user = { error: 'Invalid authorization' };
       return next();
     }

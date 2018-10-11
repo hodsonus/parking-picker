@@ -15,6 +15,6 @@ module.exports = {
     let response = payload.message || 'Server error';
     let responseCode = payload.responseCode || 500;
 
-    res.status(responseCode).json(response);
+    res.status(responseCode).json({ error: response });
   }
 }
