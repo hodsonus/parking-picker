@@ -1,4 +1,5 @@
 var bcrypt = require('bcrypt');
+var _ = require('lodash');
 
 module.exports = {
   hashPassword: function (password) {
@@ -9,5 +10,8 @@ module.exports = {
       submitted,
       current
     );
+  },
+  safe: function(user) {
+    return _.omit(user, ['password']);
   }
 }

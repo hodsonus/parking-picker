@@ -20,7 +20,7 @@ var facultyDecals = {
   'Staff Commuter': ['Green', 'Any Decal'],
 }
 
-// Note 'All Red' means Red except Red 1
+// Note 'All Red' means Red except Red 1, Red 1 seems to be privileged
 module.exports = {
   decalTypes: {
     'Green': ['Green', 'Any Decal'],
@@ -34,7 +34,7 @@ module.exports = {
     'Gold': ['Gated', 'Orange', 'Blue', 'Green', 'Red 1', 'All Red', 'Brown', 'Any Decal'],
     'Silver': ['Gated'],
     'Official Business': ['Orange', 'Blue', 'Green', 'Red 1', 'All Red', 'Brown', 'Any Decal'],
-    'Orange': ['Orange', 'Green', 'Any Decal'],
+    'Orange': ['Orange', 'Green', 'sAny Decal'],
     'Blue': ['Blue', 'Green', 'Any Decal'],
     'Medical Resident': ['Orange', 'Green', 'Red 1', 'All Red', 'Brown', 'Any Decal'],
     'Shands South 1': ['UF Health South Garage'],

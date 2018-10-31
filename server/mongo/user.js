@@ -5,12 +5,12 @@ var hashPassword = require('../util/user').hashPassword;
 var userSchema = new mongoose.Schema({
   username: { type: String, unique: true, required: true },
   password: { type: String, required: true },
-  decals: { type: [String], enum: typesEnum },
+  decals: { type: [String], enum: typesEnum }
 }, {
   timestamps: {
     createdAt: 'created_at',
-    updatedAt: 'last_updated',
-  },
+    updatedAt: 'last_updated'
+  }
 });
 
 userSchema.pre('save', function (next) {
@@ -20,3 +20,7 @@ userSchema.pre('save', function (next) {
 
   next();
 });
+
+var User = mongoose.model('User', userSchema);
+
+module.exports = User;
