@@ -5,6 +5,7 @@ module.exports = function () {
   var mongoose = require('mongoose');
   var auth = require('./middleware/auth');
   var apiRoutes = require('./endpoints');
+  var path = require('path');
 
   var config = require('./config');
   mongoose.connect(config.mongo.url, { useNewUrlParser: true });
@@ -20,7 +21,7 @@ module.exports = function () {
 
   // API routes
   app.use('/api', auth, apiRoutes);
-  app.use(express.static('../site'));
+  app.use(express.static(path.join(__dirname, '../site')));
 
   app.listen(config.server.port);
   console.log(`Listening at port ${config.server.port}`);
