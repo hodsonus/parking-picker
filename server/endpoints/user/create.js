@@ -7,7 +7,8 @@ module.exports = function (req, res) {
   var password = req.body.password;
   var decals = req.body.decals;
 
-  if (!username || !password || !decals) return rh.error(res, { message: 'Username, password, and decal array required', responseCode: 400 });
+  if (!username || !password || !decals)
+    return rh.error(res, { message: 'Username, password, and decal array required', responseCode: 400 });
 
   var newUser = new User({
     username,
