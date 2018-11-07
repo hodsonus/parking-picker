@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var _typesEnum = require('../constants').getDecals();
 
 var currentOccupencySchema = new mongoose.Schema({
   time: { type: Date, required: true },
@@ -10,14 +9,38 @@ var currentOccupencySchema = new mongoose.Schema({
   }
 }, { _id: false });
 
+currentOccupencySchema.pre('validate', function (next) {
+  if (this.isNew) {
+    this.time = new Date();
+  }
+
+  return next();
+})
+
 var lotSchema = new mongoose.Schema({
-  name: { type: String, unique: true, required: true },
+  // name: { type: String, unique: true, required: true },
   history: { type: [currentOccupencySchema] },
-  applicableDecals: { type: [String], enum: _typesEnum },
-  maxOccupancy: { type: Number, required: true }
+  decalRestriction: { type: String, required: true },
+  // maxOccupancy: { type: Number, required: true },
+  officialId: { type: String, required: true },
+  geometry: {
+    type: {
+      type: String,
+      enum: ['MultiPolygon', 'Polygon'],
+      required: true,
+    },
+    coordinates: {
+      type: mongoose.Schema.Types.Mixed,
+      required: true,
+    },
+  },
 }, {
   timestamps: {
     createdAt: 'created_at',
     updatedAt: 'last_updated'
   }
 });
+
+var Lot = mongoose.model('Lot', lotSchema);
+
+module.exports = Lot;

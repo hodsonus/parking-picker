@@ -1,14 +1,11 @@
 var express = require('express');
-var createUser = require('./user/create');
-var helloWorld = require('./helloWorld');
+// var helloWorld = require('./helloWorld');
 var getLots = require('./lot/getLots');
-
-var secure = require('../middleware/secure');
+var submitFullness = require('./lot/submitFullness');
 
 var router = express.Router();
 
-router.post('/user', createUser);
-router.get('/', secure, helloWorld);
+router.post('/lot/fullness', submitFullness);
 router.get('/lots', getLots);
 
 module.exports = router;

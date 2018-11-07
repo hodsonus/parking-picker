@@ -1,18 +1,31 @@
+var _ = require('lodash');
+
 var rh = require('../../util/res-handler');
 var Lot = require('../../mongo/lot');
 
 module.exports = function (req, res) {
-  var lotId = req.body.lotId;
+  var officialId = req.body.officialId;
   var fullness = req.body.fullness;
 
-  var lot = Lot.findById(lotId);
-  if (!lot) return rh.error(res, { responseCode: 400, message: 'Invalid lotId' });
+  if (!fullness) return rh.error(res, { responseCode: 400, message: 'Fullness required' });
 
-  lot.history.push({ time: new Date(), fullness: fullness });
+  Lot.findOneAndUpdate(
+    { officialId },
+    {
+      $push: {
+        history: { fullness, time: new Date() }
+      },
+    },
+    function (err, lot) {
+      console.log('update: ', lot, 'err: ', err);
+      if (err) {
+        return rh.error(res, {
+          responseCode: 500,
+          message: _.get(err, 'error.errmsg') || err,
+        });
+      }
 
-  lot.save(function (err) {
-    if (err) return rh.error(res, { responseCode: 500, message: err });
-
-    return rh.success(res, 'Success');
-  });
+      return rh.success(res, 'Success');
+    }
+  )
 }

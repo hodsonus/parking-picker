@@ -3,7 +3,6 @@ module.exports = function () {
   var bodyparser = require('body-parser');
   var morgan = require('morgan');
   var mongoose = require('mongoose');
-  var auth = require('./middleware/auth');
   var apiRoutes = require('./endpoints');
   var path = require('path');
 
@@ -20,7 +19,7 @@ module.exports = function () {
   app.use(morgan('combined', {}));
 
   // API routes
-  app.use('/api', auth, apiRoutes);
+  app.use('/api', apiRoutes);
   app.use(express.static(path.join(__dirname, '../site')));
 
   app.listen(config.server.port);

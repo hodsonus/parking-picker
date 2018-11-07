@@ -17,7 +17,7 @@ var facultyDecals = {
   'Medical Resident': ['Orange', 'Green', 'Red 1', 'All Red', 'Brown', 'Any Decal'],
   'Shands South 1': ['UF Health South Garage'],
   'HVN Shands South 2': ['UF Health South Garage'],
-  'Staff Commuter': ['Green', 'Any Decal'],
+  'Staff Commuter': ['Green', 'Any Decal']
 }
 
 // Note 'All Red' means Red except Red 1, Red 1 seems to be privileged
@@ -34,11 +34,11 @@ module.exports = {
     'Gold': ['Gated', 'Orange', 'Blue', 'Green', 'Red 1', 'All Red', 'Brown', 'Any Decal'],
     'Silver': ['Gated'],
     'Official Business': ['Orange', 'Blue', 'Green', 'Red 1', 'All Red', 'Brown', 'Any Decal'],
-    'Orange': ['Orange', 'Green', 'sAny Decal'],
+    'Orange': ['Orange', 'Green', 'Any Decal'],
     'Blue': ['Blue', 'Green', 'Any Decal'],
-    'Medical Resident': ['Orange', 'Green', 'Red 1', 'All Red', 'Brown', 'Any Decal'],
-    'Shands South 1': ['UF Health South Garage'],
-    'HVN Shands South 2': ['UF Health South Garage'],
+    'Medical Resident': ['Orange', 'Green', 'Red 1', 'All Red', 'Brown', 'Any Decal', 'Med Res'],
+    'Shands South 1': ['Yellow'],
+    'HVN Shands South 2': ['Yellow'],
     'Staff Commuter': ['Green', 'Any Decal'],
 
     'Motorcycle / Scooter': ['Motorcycle / Scooter']
