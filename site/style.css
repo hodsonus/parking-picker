@@ -18,8 +18,8 @@ body {
 .sidenav header{
      background-position: fixed;
      background-repeat: no-repeat;
-     background-image: url("..assets/ParkingPicker.jpg");
-     
+     background-image: url("./assets/ParkingPicker.jpg");
+
 }
 
 .sidenav a {
@@ -32,7 +32,7 @@ body {
 
 .sidenav input[type=text]{
     width: 230px;
-    height:25px;   
+    height:25px;
     
     position:relative;
     top: 100px;
@@ -77,7 +77,7 @@ body {
 .floating-box-small {
     width: 200px;
     height: 150px;
-   
+
     margin-left: 15px;
     padding:15px;
 

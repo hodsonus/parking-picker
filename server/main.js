@@ -20,6 +20,7 @@ module.exports = function () {
 
   // API routes
   app.use('/api', apiRoutes);
+
   app.use(express.static(path.join(__dirname, '../site')));
 
   app.listen(config.server.port);

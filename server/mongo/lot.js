@@ -9,19 +9,9 @@ var currentOccupencySchema = new mongoose.Schema({
   }
 }, { _id: false });
 
-currentOccupencySchema.pre('validate', function (next) {
-  if (this.isNew) {
-    this.time = new Date();
-  }
-
-  return next();
-})
-
 var lotSchema = new mongoose.Schema({
-  // name: { type: String, unique: true, required: true },
   history: { type: [currentOccupencySchema] },
   decalRestriction: { type: String, required: true },
-  // maxOccupancy: { type: Number, required: true },
   officialId: { type: String, required: true },
   geometry: {
     type: {

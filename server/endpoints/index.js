@@ -5,7 +5,7 @@ var submitFullness = require('./lot/submitFullness');
 
 var router = express.Router();
 
-router.post('/lot/fullness', submitFullness);
+router.post('/lots/fullness', submitFullness);
 router.get('/lots', getLots);
 
 module.exports = router;
