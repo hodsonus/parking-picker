@@ -1,5 +1,5 @@
 // Use these functions to send the reply from an endpoint.
-// These have to be the alst thing done by the endpoint, as you cannot reply more than once.
+// These have to be the last thing done by the endpoint, as you cannot reply more than once.
 
 // example: if(userExists) return success(res, { user })
 //          else return error(res, { message: "User not found", responseCode: 404 })
