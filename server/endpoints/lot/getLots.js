@@ -12,6 +12,9 @@ module.exports = function (req, res) {
       });
     }
 
-    return rh.success(res, docs);
+    return rh.success(res, {
+      type: 'FeatureCollection',
+      features: docs,
+    });
   })
 }
