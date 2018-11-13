@@ -14,9 +14,9 @@
   }
 </style>
 </head>
-<body>
+<body ng-app="parkingpicker">
 
-<div class="sidenav">
+<div class="sidenav" ng-controller="LotsController">
   <header>
   <input type="text" placeholder=" Search..">
   <br>
@@ -65,44 +65,10 @@
         zoom: 12.9,
         style: 'mapbox://styles/mapbox/basic-v9'
      });
-
-map.on('load', function () {
-
-    map.addLayer({
-        'id': 'parkinglots',
-        'type': 'fill',
-        'source': {
-            'type': 'geojson',
-            'data': lotArray        },
-        'layout': {},
-        'paint': {
-            'fill-color': '#088',
-            'fill-opacity': 0.8
-        }
-    });
-
-    map.on('click', 'parkinglots', function (e) {
-        new mapboxgl.Popup()
-            .setLngLat(e.lngLat)
-            .setHTML(e.features[0].properties.name)
-            .addTo(map);
-    });
-
-    // Change the cursor to a pointer when the mouse is over the states layer.
-    map.on('mouseenter', 'parkinglots', function () {
-        map.getCanvas().style.cursor = 'pointer';
-    });
-
-    // Change it back to a pointer when it leaves.
-    map.on('mouseleave', 'parkinglots', function () {
-        map.getCanvas().style.cursor = '';
-    });
-});
-
-
-
-     console.log(lotArray);
     </script>
+    <script src="js/app.js"></script>
+    <script src="js/factories/lotFactory.js"></script>
+    <script src="js/controllers/lotController.js"></script>
 
 
 </body>
