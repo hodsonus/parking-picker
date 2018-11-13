@@ -50,20 +50,47 @@ body {
     color: #818181;
 }
 
+
+.option_flex{
+  display: flex;
+  flex-direction:row;
+  font-size: 12px;
+  position: relative;
+}
+
 .floating-box {
-    width: 200px;
-    height: 250px;
+    width: 88%;
+    height: 450px;
 
     position:relative;
     top: 120px;
     margin-left: 15px;
-    padding:15px;
+
 
     background: #ffffff;
     box-shadow: 1px 1px 3px #A4A4A4;
     border-radius:6px;
 }
 
+
+.floating-box .title {
+    width: 94%;
+    height: 45px;
+
+   font-size: 20px;
+
+   color:white;
+   padding-left: 15px;
+
+   margin: 0px;
+   line-height: 50px;
+   background: #3581b8;
+   border-radius:6px 6px 0px 0px;
+}
+
+.floating-box .content {
+   padding:15px;
+}
 
 /* Filter */
 /* Customize the label (the container) */
@@ -142,6 +169,121 @@ body {
     border-radius:6px;
 }
 
+
+.mapboxgl-popup {
+    max-width: 400px;
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
+
+
+
+
+.modal {
+  
+    z-index: 10000; /* 1 */
+    top: 0;
+    left: 100;
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.modal.is-visible {
+    visibility: visible;
+}
+
+.modal-overlay {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: hsla(0, 0%, 0%, 0.5);
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 0.3s, opacity 0.3s;
+}
+
+.modal.is-visible .modal-overlay {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.modal-wrapper {
+  position: absolute;
+  z-index: 9999;
+  top: 6em;
+  left: 50%;
+  width: 32em;
+  margin-left: -16em;
+  background-color: #fff;
+  box-shadow: 0 0 1.5em hsla(0, 0%, 0%, 0.35);
+}
+
+.modal-transition {
+  transition: all 0.3s 0.12s;
+  transform: translateY(-10%);
+  opacity: 0;
+}
+
+.modal.is-visible .modal-transition {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.modal-header,
+.modal-content {
+  padding: 1em;
+  font-size :80%;
+}
+
+.modal-header {
+  position: relative;
+  background-color: #fff;
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.06);
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1em;
+  color: #aaa;
+  background: none;
+  border: 0;
+}
+
+.modal-close:hover {
+  color: #777;
+}
+
+.modal-heading {
+  font-size: 1.125em;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.modal-content > *:first-child {
+  margin-top: 0;
+}
+
+.modal-content > *:last-child {
+  margin-bottom: 0;
+}
+
+
+
+
+#mybutton {
+  position: fixed;
+  bottom: -4px;
+  right: 10px;
+}
 .main {
     margin-left: 260px;/* Same as the width of the sidenav */
     font-size: 28px; /* Increased text to enable scrolling */
