@@ -1,65 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="style.css">
-<script src='./js/factories/json/lots.js'></script>
-<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <script src='./js/factories/json/lots.js'></script>
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
 
-<style>
+  <style>
   #map{
    height: 850px;
    width: 100%;
-  }
+ }
 </style>
 </head>
 <body ng-app="parkingpicker">
+  <div></div>
+  <div class="sidenav" ng-controller="LotsController">
+    <header>
+      <input type="text" placeholder=" Search..">
+      <br>
 
-<div class="sidenav" ng-controller="LotsController">
-  <header>
-  <input type="text" placeholder=" Search..">
-  <br>
+      <div class = "floating-box">
+        <div class ="title"><b>Filters</b></div>
 
-  <div class = "floating-box">
-  <b>Filters</b>
-  <hr>
-       <form class="form-horizontal" action="">
-        <div class="col-sm-6 form-group tags categories">
+        <form class="form-horizontal" action="">
+          <div class="content">
+            <div class="col-sm-6 form-group tags categories">
 
-         <label class="container"><input type="checkbox" >Red decal <span class="checkmark"></span></label>
-          <label class="container"><input type="checkbox" >Yellow decal <span class="checkmark"></span></label>
-          <label class="container"><input type="checkbox" > Green decal<span class="checkmark"></span></label>
-          <label class="container"><input type="checkbox"> Orange decal<span class="checkmark"></span></label>
-          <label class="container"><input type="checkbox" > Gold/Silver decal<span class="checkmark"></span></label>
-	  <label class="container"><input type="checkbox" > Motorcycle/Scooter<span class="checkmark"></span></label>
+             <label class="container"><input type="checkbox" >All Decal <span class="checkmark"></span></label>
+             <label class="container"><input type="checkbox" >All Red <span class="checkmark"></span></label>
+             <label class="container"><input type="checkbox" >Blue Decal <span class="checkmark"></span></label>
+             <label class="container"><input type="checkbox" >Brown 3 Decal <span class="checkmark"></span></label>
+             <label class="container"><input type="checkbox" >Commuter <span class="checkmark"></span></label>
+             <label class="container"><input type="checkbox" >Gated <span class="checkmark"></span></label>
+             <label class="container"><input type="checkbox" >Red decal <span class="checkmark"></span></label>
+             <label class="container"><input type="checkbox" >Med Res <span class="checkmark"></span></label>
+             <label class="container"><input type="checkbox" >Orange<span class="checkmark"></span></label>
+             <label class="container"><input type="checkbox" >PKY-General <span class="checkmark"></span></label>
+             <label class="container"><input type="checkbox" >Red One <span class="checkmark"></span></label>
+             <label class="container"><input type="checkbox" >State <span class="checkmark"></span></label>
+             <label class="container"><input type="checkbox" >Visitor <span class="checkmark"></span></label>
+             <label class="container"><input type="checkbox" >Yellow <span class="checkmark"></span></label>
 
+           </div>
+
+           </div>
+                    <div class = "option_flex">
+             <div><input type="checkbox" >Save</div>
+
+             <div>Purchase Decal Now</div>
          </div>
 
-  </div>
-  <br>
-  <div class = "floating-box">
-  <b>Login</b>
-  <hr>
- </div>
-</div>
+       </div>
 
-<style>
-.mapboxgl-popup {
-    max-width: 400px;
-    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-}
-</style>
+     </div>
 
 
-<div id='map'></div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<script src="https://code.angularjs.org/1.7.5/angular.min.js"></script>
-    <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiY2hhZHdpc2giLCJhIjoiY2pvNHBtMDJ4MDJoNzNrcW1lNTl5OHJ3cCJ9.2IMzK7lWG1qE7aLA39BHUw';
-    var map = new mapboxgl.Map({
+
+     <div id='map'></div>
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+     <script src="https://code.angularjs.org/1.7.5/angular.min.js"></script>
+     <script>
+      mapboxgl.accessToken = 'pk.eyJ1IjoiY2hhZHdpc2giLCJhIjoiY2pvNHBtMDJ4MDJoNzNrcW1lNTl5OHJ3cCJ9.2IMzK7lWG1qE7aLA39BHUw';
+      var map = new mapboxgl.Map({
         container: 'map',
         center: [-82.356360, 29.641178],
         zoom: 12.9,
@@ -70,6 +76,12 @@
     <script src="js/factories/lotFactory.js"></script>
     <script src="js/controllers/lotController.js"></script>
 
+<script>
+  $('.modal-toggle').on('click', function(e) {
+    e.preventDefault();
+    $('.modal').toggleClass('is-visible');
+  });
+</script>
 
 </body>
 </html>
