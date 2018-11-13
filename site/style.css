@@ -1,6 +1,10 @@
 <style>
 body {
-    font-family: "Lato", sans-serif;
+    font-family: "Verdana", sans-serif;
+}
+
+.bgcolor2 {
+    color: #000��
 }
 
 .sidenav {
@@ -18,8 +22,8 @@ body {
 .sidenav header{
      background-position: fixed;
      background-repeat: no-repeat;
-     background-image: url("./assets/ParkingPicker.jpg");
 
+     background-image: url("./assets/logo.jpg");
 }
 
 .sidenav a {
@@ -33,7 +37,7 @@ body {
 .sidenav input[type=text]{
     width: 230px;
     height:25px;
-    
+
     position:relative;
     top: 100px;
 
@@ -60,18 +64,70 @@ body {
     border-radius:6px;
 }
 
-.floating-box title{
-    width: 200px;
-    height: 250px;
 
-    position:relative;
-    top: 120px;
-    margin-left: 15px;
-    padding:15px;
+/* Filter */
+/* Customize the label (the container) */
+.container {
+  display: block;
+  position: relative;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 13px;
 
-    background: #ffffff;
-    box-shadow: 1px 1px 3px #A4A4A4;
-    border-radius:6px;
+}
+
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  right:0;
+  height: 15px;
+  width: 15px;
+  box-shadow: 1px 1px 1px #A4A4A4;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 4px;
+  top: 3px;
+  width: 2px;
+  height: 5px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .floating-box-small {
@@ -93,7 +149,7 @@ body {
 }
 
 .bg-image {
-    background-image: url("map.jpg");
+    background-image: url("./assets/map.jpg");
 }
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
