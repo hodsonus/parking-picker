@@ -13,7 +13,7 @@ module.exports = function (req, res) {
     { officialId },
     {
       $push: {
-        history: { fullness, time: new Date() }
+        'properties.history': { fullness, time: new Date() }
       },
     },
     function (err, lot) {

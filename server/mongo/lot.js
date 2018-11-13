@@ -10,9 +10,12 @@ var currentOccupencySchema = new mongoose.Schema({
 }, { _id: false });
 
 var lotSchema = new mongoose.Schema({
-  history: { type: [currentOccupencySchema] },
-  decalRestriction: { type: String, required: true },
-  officialId: { type: String, required: true },
+  type: { type: String, required: true, enum: ['Feature'] },
+  properties: {
+    history: { type: [currentOccupencySchema] },
+    decalRestriction: { type: String, required: true },
+    officialId: { type: String, required: true },
+  },
   geometry: {
     type: {
       type: String,

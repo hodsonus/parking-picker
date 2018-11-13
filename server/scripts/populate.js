@@ -30,8 +30,11 @@ function prune (l) {
 function matchSchema (l) {
   return {
     geometry: l.geometry,
-    decalRestriction: l.properties.DECAL,
-    officialId: l.properties.OBJECTID,
+    type: 'Feature',
+    properties: {
+      decalRestriction: l.properties.DECAL,
+      officialId: l.properties.OBJECTID,
+    },
   }
 }
 
