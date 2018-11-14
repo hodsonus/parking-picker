@@ -72,10 +72,14 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
         map.on('click', MAP_LAYER_NAME, function (e) {
           console.log(map.queryRenderedFeatures(e.point));
           new mapboxgl.Popup()
-            .setLngLat(e.lngLat)
-            .setHTML('')
-            .addTo(map);
+          .setLngLat(e.lngLat)
+          .setHTML('')
+          .addTo(map);
         });
+
+        // Add zoom and rotation controls to the map.
+        map.addControl(new mapboxgl.NavigationControl());
+        console.log(lotArray);
 
         // Change the cursor to a pointer when the mouse is over the states layer.
         map.on('mouseenter', MAP_LAYER_NAME, function () {
@@ -123,4 +127,4 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
       window.localStorage.setItem('pp-decals', JSON.stringify($scope.selection));
     }
   }
-]);
+  ]);

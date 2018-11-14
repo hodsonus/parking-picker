@@ -18,7 +18,7 @@
   <div></div>
   <div class="sidenav" ng-controller="LotsController">
     <header>
-      <input type="text" placeholder=" Search..">
+      <input type="text" placeholder=" Search for building..">
       <br>
 
       <div class = "floating-box">
@@ -38,28 +38,29 @@
 
                  - Use `ng-model="fruit.selected"` to utilize two-way-data-binding. Note that `.selected`
                    is arbitrary. The property name could be anything and will be created on the object if not present.
-               -->
-               <input
-                 type="checkbox"
-                 name="selectedDecals[]"
-                 ng-model="decal.selected"
-               > {{decal.decal}} </br>
-             </label>
+                 -->
+                 <label class="container">
+                   <input
+                   type="checkbox"
+                   name="selectedDecals[]"
+                   ng-model="decal.selected"
+                   > {{decal.decal}} 
+                   <span class="checkmark"></span>
+                 </label>
+               </label>
 
+             </div>
            </div>
+         </form>
 
-           </div>
-                    <div class = "option_flex">
-             <button type='button' ng-disabled='!loaded' ng-click="save()">Save </button>
+         <div id="mybutton">
+           <div class='mybutton white' ng-disabled='!loaded' ng-click="save()">Save </div>
+         </div><br><br>
 
-             <div>Purchase Decal Now</div>
-         </div>
+         <div><u><a href="http://parking.ufl.edu/decals/" align="center">Purchase Decal Now</a></u></div>
 
        </div>
-
      </div>
-
-
 
      <div id='map'></div>
      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -74,19 +75,155 @@
         center: [-82.356360, 29.641178],
         zoom: 12.9,
         style: 'mapbox://styles/mapbox/basic-v9'
-     });
+
+      });
 
     </script>
-    <script src="js/app.js"></script>
-    <script src="js/factories/lotFactory.js"></script>
-    <script src="js/controllers/lotController.js"></script>
 
-<script>
+
+
+
+
+    /* Sprint 2 Demo: Modal */
+    <div id="mybuttonTEMP">
+      <button class="modal-toggle">Information</button>
+    </div>
+
+    <div class="modal">
+      <div class="modal-overlay modal-toggle"></div>
+      <div class="modal-wrapper modal-transition">
+
+        <div class="modal-body">
+          <div class="modal-content">
+
+            <button class="tablink" onclick="openPage('Summary', this, '#F8F9F9')" id="defaultOpen">Summary</button>
+            <button class="tablink" onclick="openPage('Rate', this,'#F8F9F9' )">Rate Fullness</button>
+            <button class="tablink" onclick="openPage('Statistics', this,'#F8F9F9')">Statistics</button>
+
+
+            <div id="Summary" class="tabcontent">
+             <div class="lotName"> Norman Garage</div>
+             <hr>
+
+             <table bgcolor="white">
+              <tr>
+                <td width="60%">
+                 <div class="percentIMG">
+                  <img src="./assets/full.png" alt="About 30% Full" width="100%"> 
+                </div>
+              </td>
+
+              <td>
+               <b> Allowed Decal(s):</b>
+               <hr>
+               <ul>
+                <li> Red 1 </li>
+                <li> Red 3 </li>
+                <li> Orange </li>
+              </ul>
+              <br>
+              <b> Updated At:</b>
+              <hr>
+              11:30:00AM
+
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="Rate" class="tabcontent">
+
+        <div class="range">
+          <input type="range" min="0" max="9" value="2" class="slider">
+          <div class="sliderticks">
+            <p>Empty</p>
+            <p></p>
+            <p></p>
+            <p>Low</p>
+            <p></p>
+            <p></p>
+            <p>High</p>
+            <p></p>
+            <p></p>
+            <p>Full</p>
+          </div><div></div>
+          <div id="mybutton">
+            <button class="modal-toggle"><a href="#" class="mybutton blue"> Submit </a></button>
+          </div>
+        </div>
+      </div>
+
+      <div id="Statistics" class="tabcontent">
+
+        <button class="collapsible" value="test">+ Show Graph</button>
+        <div class="graph">
+          <img src="./assets/graph.png" alt="Graph" height=100% width=100%>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/factories/lotFactory.js"></script>
+<script src="js/controllers/lotController.js"></script>
+
+
+<script >  
   $('.modal-toggle').on('click', function(e) {
+    console.log("Modal Toggled")
     e.preventDefault();
     $('.modal').toggleClass('is-visible');
   });
 </script>
+
+
+<script>
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function(e) {
+      e.preventDefault();
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
+  }
+</script>
+
+<script>
+  function openPage(pageName, elmnt,color) {
+    // Hide all elements with class="tabcontent" by default */
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+
+    // Remove the background color of all tablinks/buttons
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].style.backgroundColor = "";
+    }
+
+    // Show the specific tab content
+    document.getElementById(pageName).style.display = "block";
+    elmnt.style.backgroundColor = color;
+
+  }
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+
+</script>
+
 
 </body>
 </html>
