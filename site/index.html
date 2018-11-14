@@ -74,7 +74,58 @@
         center: [-82.356360, 29.641178],
         zoom: 12.9,
         style: 'mapbox://styles/mapbox/basic-v9'
-     });
+      });
+</script>
+
+
+
+
+
+/* Sprint 2 Demo: Modal */
+<div id="mybuttonTEMP">
+  <button class="modal-toggle">Information</button>
+</div>
+
+<div class="modal">
+  <div class="modal-overlay modal-toggle"></div>
+  <div class="modal-wrapper modal-transition">
+
+    <div class="modal-header">
+      <button class="modal-close modal-toggle"><svg class="icon-close icon" viewBox="0 0 32 32"><use xlink:href="#icon-close"></use></svg></button>
+      <h2 class="modal-heading">Commutor Lot</h2>
+    </div>
+
+    <div class="modal-body">
+      <div class="modal-content">
+        <div class="range">
+          <input type="range" min="0" max="10" value="2" class="slider">
+          <div class="sliderticks">
+            <p>Empty</p>
+            <p></p>
+            <p></p>
+            <p>Low</p>
+            <p></p>
+            <p></p>
+            <p>High</p>
+            <p></p>
+            <p></p>
+            <p>Full</p>
+          </div>
+        </div>
+<br>
+        <button class="collapsible">+ Show Graph</button>
+        <div class="graph">
+          <img src="./assets/graph.png" alt="Graph" height=100% width=100%>
+        </div>
+        
+        <br>
+        <div id="mybutton">
+          <button class="modal-toggle">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
     </script>
     <script src="js/app.js"></script>
