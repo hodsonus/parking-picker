@@ -5,6 +5,8 @@
   <link rel="stylesheet" href="style.css">
   <script src='./js/factories/json/lots.js'></script>
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
+  <script src ='./js/Modal.js'></script>
+  <script src ='./js/Slider.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
 
   <style>
@@ -18,7 +20,7 @@
   <div></div>
   <div class="sidenav">
     <header>
-      <input type="text" placeholder=" Search..">
+      <input type="text" placeholder=" Search For Building">
       <br>
 
       <div class = "floating-box">
@@ -45,11 +47,11 @@
 
            </div>
 
-           </div>
-                    <div class = "option_flex">
-             <div><input type="checkbox" >Save</div>
+         </div>
+         <div class = "option_flex">
+           <div><input type="checkbox" >Save</div>
 
-             <div>Purchase Decal Now</div>
+           <div>Purchase Decal Now</div>
          </div>
 
        </div>
@@ -116,9 +118,10 @@ console.log(lotArray);
 
 
 /* Sprint 2 Demo: Modal */
-<div id="mybutton">
+<div id="mybuttonTEMP">
   <button class="modal-toggle">Information</button>
 </div>
+
 <div class="modal">
   <div class="modal-overlay modal-toggle"></div>
   <div class="modal-wrapper modal-transition">
@@ -130,25 +133,61 @@ console.log(lotArray);
 
     <div class="modal-body">
       <div class="modal-content">
-        <p><b>Monday:</b>7:30am - 4:30pm</p>
-        <p><b>Tuesday:</b>7:30am - 4:30pm</p>
-        <p><b>Wednesday:</b>7:30am - 4:30pm</p>
-        <p><b>Thursday:</b>7:30am - 4:30pm</p>
-        <p><b>Friday</b>7:30am - 4:30pm</p>
-        <p><b>Saturday:</b>No Restriction</p>
-        <p><b>Sunday:</b>No Restriction</p>
-        <button class="modal-toggle">Update</button>
+        <div class="range">
+          <input type="range" min="0" max="10" value="2" class="slider">
+          <div class="sliderticks">
+            <p>Empty</p>
+            <p></p>
+            <p></p>
+            <p>Low</p>
+            <p></p>
+            <p></p>
+            <p>High</p>
+            <p></p>
+            <p></p>
+            <p>Full</p>
+          </div>
+        </div>
+<br>
+        <button class="collapsible">+ Show Graph</button>
+        <div class="graph">
+          <img src="./assets/graph.png" alt="Graph" height=100% width=100%>
+        </div>
+        
+        <br>
+        <div id="mybutton">
+          <button class="modal-toggle">Update</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 
-<script>
+
+<script >  
   $('.modal-toggle').on('click', function(e) {
     e.preventDefault();
     $('.modal').toggleClass('is-visible');
   });
+
+</script>
+
+<script>
+  var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
 </script>
 
 </body>
