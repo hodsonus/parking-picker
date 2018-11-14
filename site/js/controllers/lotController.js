@@ -28,22 +28,74 @@ const decalMap = {
   getParkingOptions: function (decal) { return this.decalTypes[decal] }
 }
 
+function filterLots (lots, decals) {
+  return lots.filter(function (lot) {
+    var restriction = lot.properties.decalRestriction;
+    if (decals.length === 0) return true;
+
+    var d = decals.reduce(function (acc, curr) {
+      return acc + !!decalMap.getParkingOptions(curr).includes(restriction);
+    }, 0)
+    return d;
+  });
+}
+
+var MAP_LAYER_NAME = 'parkinglots';
 angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFilter',
   function ($scope, Lots, filterFilter) {
-    /* Get all the lots, then bind it to the scope */
-    console.log('in controller', $scope);
-
     $scope.loaded = false;
-    Lots.getAll().then(function (response) {
-      $scope.lots = response.data;
-    }, function (error) {
-      console.log('Unable to retrieve lots:', error);
-    });
-    $scope.selection = [];
+    /* Get all the lots, then bind it to the scope */
+    map.on('load', function () {
+      Lots.getAll().then(function (response) {
+        $scope.loaded = true;
+        $scope.lots = response.data;
+        map.addSource('dblots', {
+          type: 'geojson',
+          data: (function () {
+            var data = {};
+            Object.assign(data, $scope.lots);
+            data.features = filterLots(data.features, $scope.selection);
+            return data;
+          })()
+        })
+        map.addLayer({
+          'id': MAP_LAYER_NAME,
+          'type': 'fill',
+          'source': 'dblots',
+          'layout': {},
+          'paint': {
+            'fill-color': '#088',
+            'fill-opacity': 0.8
+          }
+        });
+
+        map.on('click', MAP_LAYER_NAME, function (e) {
+          console.log(map.queryRenderedFeatures(e.point));
+          new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML('')
+            .addTo(map);
+        });
+
+        // Change the cursor to a pointer when the mouse is over the states layer.
+        map.on('mouseenter', MAP_LAYER_NAME, function () {
+          map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on('mouseleave', MAP_LAYER_NAME, function () {
+          map.getCanvas().style.cursor = '';
+        });
+      }, function (error) {
+        console.log('Unable to retrieve lots:', error);
+      });
+    })
+
+    $scope.selection = JSON.parse(window.localStorage.getItem('pp-decals')) || [];
     $scope.decalRestrictions = decalMap.getDecals().map(function (decal) {
       return {
         decal,
-        selected: false,
+        selected: $scope.selection.includes(decal),
       }
     })
 
@@ -62,39 +114,13 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
       console.log('databefore', $scope.lots);
       var data = {};
       Object.assign(data, $scope.lots);
-      data.features = data.features.filter(function (lot) {
-        var restriction = lot.properties.decalRestriction;
-        if ($scope.selection.length === 0) return true;
-
-
-        var d = $scope.selection.reduce(function (acc, curr) {
-          // console.log(decalMap.getParkingOptions(curr).includes(restriction));
-          // console.log('acc', acc);
-          // console.log('restr', restriction, 'curr', curr);
-          return acc + !!decalMap.getParkingOptions(curr).includes(restriction);
-        }, 0)
-        return d;
-      });
-      console.log('data', data, 'lots', $scope.lots);
+      data.features = filterLots(data.features, $scope.selection);
       map.getSource('dblots').setData(data);
-      // if (map.getLayer(MAP_LAYER_NAME)) map.removeLayer(MAP_LAYER_NAME);
+    }
 
-      // map.addLayer({
-      //   'id': MAP_LAYER_NAME,
-      //   'type': 'fill',
-      //   'source': {
-      //     'type': 'geojson',
-      //     'data': data
-      //   },
-      //   'layout': {},
-      //   'paint': {
-      //     'fill-color': '#088',
-      //     'fill-opacity': 0.8
-      //   }
-      // });
-      $scope.loaded = true;
-
-
+    $scope.save = function () {
+      $scope.updateMapLayer();
+      window.localStorage.setItem('pp-decals', JSON.stringify($scope.selection));
     }
   }
 ]);
