@@ -44,6 +44,7 @@ var MAP_LAYER_NAME = 'parkinglots';
 angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFilter',
   function ($scope, Lots, filterFilter) {
     $scope.loaded = false;
+    var map = window.map;
     /* Get all the lots, then bind it to the scope */
     map.on('load', function () {
       Lots.getAll().then(function (response) {
