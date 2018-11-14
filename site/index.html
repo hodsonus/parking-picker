@@ -16,9 +16,9 @@
  }
 </style>
 </head>
-<body>
+<body ng-app="parkingpicker">
   <div></div>
-  <div class="sidenav">
+  <div class="sidenav" ng-controller="LotsController">
     <header>
       <input type="text" placeholder=" Search For Building">
       <br>
@@ -30,27 +30,28 @@
           <div class="content">
             <div class="col-sm-6 form-group tags categories">
 
-             <label class="container"><input type="checkbox" >All Decal <span class="checkmark"></span></label>
-             <label class="container"><input type="checkbox" >All Red <span class="checkmark"></span></label>
-             <label class="container"><input type="checkbox" >Blue Decal <span class="checkmark"></span></label>
-             <label class="container"><input type="checkbox" >Brown 3 Decal <span class="checkmark"></span></label>
-             <label class="container"><input type="checkbox" >Commuter <span class="checkmark"></span></label>
-             <label class="container"><input type="checkbox" >Gated <span class="checkmark"></span></label>
-             <label class="container"><input type="checkbox" >Red decal <span class="checkmark"></span></label>
-             <label class="container"><input type="checkbox" >Med Res <span class="checkmark"></span></label>
-             <label class="container"><input type="checkbox" >Orange<span class="checkmark"></span></label>
-             <label class="container"><input type="checkbox" >PKY-General <span class="checkmark"></span></label>
-             <label class="container"><input type="checkbox" >Red One <span class="checkmark"></span></label>
-             <label class="container"><input type="checkbox" >State <span class="checkmark"></span></label>
-             <label class="container"><input type="checkbox" >Visitor <span class="checkmark"></span></label>
-             <label class="container"><input type="checkbox" >Yellow <span class="checkmark"></span></label>
+              <label ng-repeat="decal in decalRestrictions">
+               <!--
+                 - Use `value="{{fruit.name}}"` to give the input a real value, in case the form gets submitted
+                   traditionally
+
+                 - Use `ng-checked="fruit.selected"` to have the checkbox checked based on some angular expression
+                   (no two-way-data-binding)
+
+                 - Use `ng-model="fruit.selected"` to utilize two-way-data-binding. Note that `.selected`
+                   is arbitrary. The property name could be anything and will be created on the object if not present.
+               -->
+               <input
+                 type="checkbox"
+                 name="selectedDecals[]"
+                 ng-model="decal.selected"
+               > {{decal.decal}} </br>
+             </label>
 
            </div>
-
-         </div>
-         <div class = "option_flex">
-           <div><input type="checkbox" >Save</div>
-
+           </div>
+                    <div class = "option_flex">
+             <button type='button' ng-disabled='!loaded' ng-click="save()">Save </button>
            <div>Purchase Decal Now</div>
          </div>
 
@@ -66,103 +67,19 @@
      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
      <script src="https://code.angularjs.org/1.7.5/angular.min.js"></script>
      <script>
+
       mapboxgl.accessToken = 'pk.eyJ1IjoiY2hhZHdpc2giLCJhIjoiY2pvNHBtMDJ4MDJoNzNrcW1lNTl5OHJ3cCJ9.2IMzK7lWG1qE7aLA39BHUw';
       var map = new mapboxgl.Map({
         container: 'map',
         center: [-82.356360, 29.641178],
         zoom: 12.9,
         style: 'mapbox://styles/mapbox/basic-v9'
-      });
+     });
 
-      map.on('load', function () {
-
-        map.addLayer({
-          'id': 'parkinglots',
-          'type': 'fill',
-          'source': {
-            'type': 'geojson',
-            'data': lotArray        },
-            'layout': {},
-            'paint': {
-              'fill-color': '#088',
-              'fill-opacity': 0.8
-            }
-          });
-
-        map.on('click', 'parkinglots', function (e) {
-          new mapboxgl.Popup()
-          .setLngLat(e.lngLat)
-          .setHTML(e.features[0].properties.name)
-          .addTo(map);
-        });
-
-    // Change the cursor to a pointer when the mouse is over the states layer.
-    map.on('mouseenter', 'parkinglots', function () {
-      map.getCanvas().style.cursor = 'pointer';
-    });
-
-    // Change it back to a pointer when it leaves.
-    map.on('mouseleave', 'parkinglots', function () {
-      map.getCanvas().style.cursor = '';
-    });
-  });
-
-
-// Add zoom and rotation controls to the map.
-map.addControl(new mapboxgl.NavigationControl());
-console.log(lotArray);
-</script>
-
-
-
-
-
-/* Sprint 2 Demo: Modal */
-<div id="mybuttonTEMP">
-  <button class="modal-toggle">Information</button>
-</div>
-
-<div class="modal">
-  <div class="modal-overlay modal-toggle"></div>
-  <div class="modal-wrapper modal-transition">
-
-    <div class="modal-header">
-      <button class="modal-close modal-toggle"><svg class="icon-close icon" viewBox="0 0 32 32"><use xlink:href="#icon-close"></use></svg></button>
-      <h2 class="modal-heading">Commutor Lot</h2>
-    </div>
-
-    <div class="modal-body">
-      <div class="modal-content">
-        <div class="range">
-          <input type="range" min="0" max="10" value="2" class="slider">
-          <div class="sliderticks">
-            <p>Empty</p>
-            <p></p>
-            <p></p>
-            <p>Low</p>
-            <p></p>
-            <p></p>
-            <p>High</p>
-            <p></p>
-            <p></p>
-            <p>Full</p>
-          </div>
-        </div>
-<br>
-        <button class="collapsible">+ Show Graph</button>
-        <div class="graph">
-          <img src="./assets/graph.png" alt="Graph" height=100% width=100%>
-        </div>
-        
-        <br>
-        <div id="mybutton">
-          <button class="modal-toggle">Update</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
+    </script>
+    <script src="js/app.js"></script>
+    <script src="js/factories/lotFactory.js"></script>
+    <script src="js/controllers/lotController.js"></script>
 
 
 <script >  

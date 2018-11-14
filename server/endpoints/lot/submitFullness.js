@@ -9,23 +9,23 @@ module.exports = function (req, res) {
 
   if (!fullness) return rh.error(res, { responseCode: 400, message: 'Fullness required' });
 
-  Lot.findOneAndUpdate(
-    { officialId },
-    {
-      $push: {
-        'properties.history': { fullness, time: new Date() }
-      },
-    },
-    function (err, lot) {
-      console.log('update: ', lot, 'err: ', err);
-      if (err) {
-        return rh.error(res, {
-          responseCode: 500,
-          message: _.get(err, 'error.errmsg') || err,
+  try {
+    Lot.findOne(
+      { 'properties.officialId': officialId },
+      function (err, doc) {
+        if (err) return rh.error(res, { responseCode: 500, message: err });
+        console.log(doc);
+        if (!doc) return rh.error(res, { responseCode: 404, message: 'Lot not found' });
+        doc.properties.history.push({ fullness, time: new Date() });
+
+        doc.save(function (err) {
+          if (err) return rh.error(res, { responseCode: 500, message: err });
+          rh.success(res, 'Success');
         });
       }
 
-      return rh.success(res, 'Success');
-    }
-  )
+    )
+  } catch (err) {
+    return rh.error(res, { responseCode: 500, message: err });
+  }
 }
