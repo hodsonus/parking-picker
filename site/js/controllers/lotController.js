@@ -40,7 +40,8 @@ function filterLots (lots, decals) {
   });
 }
 
-var MAP_LAYER_NAME = 'parkinglots';
+var LOTS_LAYER_NAME = 'parkinglots';
+var BLDG_LAYER_NAME = 'buildings';
 angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFilter',
   function ($scope, Lots, filterFilter) {
     $scope.loaded = false;
@@ -60,7 +61,7 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
           })()
         })
         map.addLayer({
-          'id': MAP_LAYER_NAME,
+          'id': LOTS_LAYER_NAME,
           'type': 'fill',
           'source': 'dblots',
           'layout': {},
@@ -70,7 +71,7 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
           }
         });
 
-        map.on('click', MAP_LAYER_NAME, function (e) {
+        map.on('click', LOTS_LAYER_NAME, function (e) {
           console.log(map.queryRenderedFeatures(e.point));
           new mapboxgl.Popup()
             .setLngLat(e.lngLat)
@@ -78,17 +79,35 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
             .addTo(map);
         });
 
+        // Add zoom and rotation controls to the map.
+        map.addControl(new mapboxgl.NavigationControl());
+        console.log(lotArray);
+
         // Change the cursor to a pointer when the mouse is over the states layer.
-        map.on('mouseenter', MAP_LAYER_NAME, function () {
+        map.on('mouseenter', LOTS_LAYER_NAME, function () {
           map.getCanvas().style.cursor = 'pointer';
         });
 
         // Change it back to a pointer when it leaves.
-        map.on('mouseleave', MAP_LAYER_NAME, function () {
+        map.on('mouseleave', LOTS_LAYER_NAME, function () {
           map.getCanvas().style.cursor = '';
         });
-      }, function (error) {
+      }).catch(function (error) {
         console.log('Unable to retrieve lots:', error);
+      }).then(function () {
+        map.addLayer({
+          'id': BLDG_LAYER_NAME,
+          'type': 'symbol',
+          'source': {
+            type: 'geojson',
+            data: '/api/buildings',
+          },
+          'layout': {
+            'text-field': '{MAP_NAME}',
+            'text-offset': [0, 0.6],
+            'text-anchor': 'top'
+          },
+        });
       });
     })
 
@@ -124,4 +143,4 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
       window.localStorage.setItem('pp-decals', JSON.stringify($scope.selection));
     }
   }
-]);
+  ]);

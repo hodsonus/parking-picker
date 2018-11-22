@@ -1,95 +1,104 @@
 <style>
 body {
-    font-family: "Verdana", sans-serif;
+  font-family: Helvetica, Arial, Sans-Serif;
+  height:100%;
 }
 
+p{
+  font-family: Helvetica;
+}
+
+.a:hover, a:active{
+  color: white;
+}
 .bgcolor2 {
-    color: #000��
+  color: #000��
 }
 
 .sidenav {
-    height: 100%;
-    width: 260px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #F7F7F7;
-    overflow-x: hidden;
-    padding-top: 0px;
+  height: 100%;
+  width: 260px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #F7F7F7;
+  overflow-x: hidden;
+  padding-top: 0px;
 }
 
 .sidenav header{
-     background-position: fixed;
-     background-repeat: no-repeat;
+ background-position: fixed;
+ background-repeat: no-repeat;
 
-     background-image: url("./assets/logo.jpg");
+ background-image: url("./assets/logo.jpg");
 }
 
 .sidenav a {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 12px;
-    color: #000000;
-    display: block;
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 12px;
+  color: #000000;
+  display: block;
 }
 
 .sidenav input[type=text]{
-    width: 230px;
-    height:25px;
+  width: 88%;
+  height:25px;
 
-    position:relative;
-    top: 100px;
 
-    margin-left: 15px;
-    border: 1px solid #ccc;
-    border-radius: 2px;
+  position:relative;
+  top: 100px;
+
+  margin-left: 15px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
 }
 
 .sidenav a:hover {
-    color: #818181;
+  color: #818181;
 }
 
 
-.option_flex{
-  display: flex;
-  flex-direction:row;
-  font-size: 12px;
-  position: relative;
+.form{
+  display:inline-block;
 }
 
 .floating-box {
-    width: 88%;
-    height: 450px;
+  width: 88%;
+  height: 580px;
 
-    position:relative;
-    top: 120px;
-    margin-left: 15px;
+  position:relative;
+  top: 120px;
+  margin-left: 15px;
 
 
-    background: #ffffff;
-    box-shadow: 1px 1px 3px #A4A4A4;
-    border-radius:6px;
+  background: #ffffff;
+  box-shadow: 1px 1px 3px #A4A4A4;
+  border-radius:6px;
 }
 
 
 .floating-box .title {
-    width: 94%;
-    height: 45px;
+  width: 100%;
+  height: 45px;
 
-   font-size: 20px;
+  font-size: 20px;
+ font-family: Helvetica, Arial, Sans-Serif;
 
-   color:white;
-   padding-left: 15px;
+  color:white;
+  padding-left: 15px;
 
-   margin: 0px;
-   line-height: 50px;
-   background: #3581b8;
-   border-radius:6px 6px 0px 0px;
+  margin: 0px;
+  line-height: 50px;
+  background: #3581b8;
+  border-radius:6px 6px 0px 0px;
 }
 
 .floating-box .content {
-   padding:15px;
+ padding:15px;
+ font-family: Helvetica, Arial, Sans-Serif;
+
 }
 
 /* Filter */
@@ -99,7 +108,7 @@ body {
   position: relative;
   margin-bottom: 10px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
 
 }
 
@@ -158,39 +167,40 @@ body {
 }
 
 .floating-box-small {
-    width: 200px;
-    height: 150px;
+  width: 200px;
+  height: 150px;
 
-    margin-left: 15px;
-    padding:15px;
+  margin-left: 15px;
+  padding:15px;
 
-    background: #ffffff;
-    box-shadow: 1px 1px 3px #A4A4A4;
-    border-radius:6px;
+  background: #ffffff;
+  box-shadow: 1px 1px 3px #A4A4A4;
+  border-radius:6px;
 }
 
 
 .mapboxgl-popup {
-    max-width: 400px;
-    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  max-width: 400px;
+  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
 
 
-
-
+/*----------------*/
+/* Modal - POP UP */
+/*----------------*/
 
 .modal {
-  
-    z-index: 10000; /* 1 */
-    top: 0;
-    left: 100;
-    visibility: hidden;
-    width: 100%;
-    height: 100%;
+
+  z-index: 10000; /* 1 */
+  top: 0;
+  left: 100;
+  visibility: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 .modal.is-visible {
-    visibility: visible;
+  visibility: visible;
 }
 
 .modal-overlay {
@@ -236,8 +246,8 @@ body {
 
 .modal-header,
 .modal-content {
-  padding: 1em;
-  font-size :80%;
+  padding: 0.3em;
+  font-size :100%;
 }
 
 .modal-header {
@@ -262,39 +272,256 @@ body {
 }
 
 .modal-heading {
-  font-size: 1.125em;
+  font-size: 20px;
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.modal-content > *:first-child {
-  margin-top: 0;
+/*
+.modal-grid{
+  display: grid;
+  grid-template-rows: 33% auto auto;
+  grid-gap: 5px;
+  grid-auto-flow: dense;
+  
+  background-color: #FFF;
+  border-radius:3px;
+  padding:5px;
 }
 
-.modal-content > *:last-child {
-  margin-bottom: 0;
+.modal-grid left{
+  grid-row: 1/span 2;
+}
+
+.modal-grid rate{
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.modal-grid graph{
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.modal-grid submit{
+  grid-column:2;
+  grid-row:3;
+}
+*/
+/*----------------*/
+/*    Slider      */
+/*----------------*/
+
+* {
+  box-sizing: border-box;
+}
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 20px;
+  background: #D3D3D3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #3581b8;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #FF0000;
+  cursor: pointer;
+}
+
+.sliderticks {
+  display: flex;
+  font-size:12px;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.sliderticks p {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 1px;
+  background: #D3D3D3;
+  height: 10px;
+  line-height: 40px;
+  margin: 0 0 20px 0;
 }
 
 
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
 
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
 
-#mybutton {
+/* Style the collapsible content. Note: hidden by default */
+.graph {
+  padding: 10px 0px 0px 0px;
+  display: none;
+  overflow: hidden;
+  
+}
+
+.modal-toggle{
+  padding:0;
+  border-radius: 5px;
+
+}
+
+#mybuttonTEMP {
   position: fixed;
   bottom: -4px;
   right: 10px;
 }
+
+#mybutton{
+  text-align:center;
+  margin-top: 0px;
+
+}
+
+.mybutton {
+  border-radius: 5px;
+  padding: 8px 15px;
+  font-size: 18px;
+  text-decoration: none;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+}
+.mybutton:active {
+  transform: translate(0px, 2px);
+  -webkit-transform: translate(0px, 2px);
+  box-shadow: 0px 1px 0px 0px;
+}
+
+
+.blue {
+  background-color: #55acee;
+  
+}
+
+.blue:hover {
+  background-color: #6FC6FF;
+}
+
+.white {
+ font-family: Helvetica, Arial, Sans-Serif;
+ background-color: #ffffff;
+ color: #2196F3;
+ border: 1px solid #2196F3;
+ padding:6px 15px;  
+}
+
+.white:hover {
+  background-color: #2196F3;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+
+
+/* Style tab links */
+.tablink {
+  background-color: #E5E7E9;
+  color: black;
+  float: left;
+  border: 1px;
+  outline: 5px;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 16px;
+  width: 33%;
+}
+
+.tablink:hover {
+  background-color: #D5D8DC;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: black;
+  display: none;
+  font-family: Helvetica;
+  padding:30px 30px;
+  padding-top: 80px;
+  height: 100%;
+}
+
+.lotName{
+ font-size:24px;
+ font-weight:100;        
+
+ display:inline-block;
+ vertical-align:top;
+ position:relative; 
+}
+
+.percentIMG{
+  position: relative;
+
+  top:0px;
+
+}
+
+hr{
+  margin:0 0 15px;
+}
+
+
+td{
+  padding:15px;
+}
+
+#Summary {background-color: #F8F9F9;}
+#Rate {background-color: #F8F9F9;}
+#Statistics {background-color: #F8F9F9;}
+
+
 .main {
-    margin-left: 260px;/* Same as the width of the sidenav */
-    font-size: 28px; /* Increased text to enable scrolling */
-    padding: 0px 10px;
+  margin-left: 260px;/* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
 }
 
 .bg-image {
-    background-image: url("./assets/map.jpg");
+  background-image: url("./assets/map.jpg");
 }
 @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
 }
 </style>
