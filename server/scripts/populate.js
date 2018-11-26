@@ -4,6 +4,7 @@ var _ = require('lodash');
 
 var lots = require('./parking_lots').features;
 var Lot = require('../mongo/lot');
+var scoot = require('./scooters').features;
 
 console.log('length:', lots.length);
 console.log('decals', _.uniqBy(
@@ -38,10 +39,24 @@ function matchSchema (l) {
   }
 }
 
+function matchScootSchema (l) {
+  return {
+    geometry: l.geometry,
+    type: 'Feature',
+    properties: {
+      decalRestriction: 'Motorcycle / Scooter',
+      officialId: ((Math.random() * 100000) + 10000).toString(10), 
+    },
+  }
+}
+
 mongoose.connect(config.mongo.url, { useNewUrlParser: true });
 
-Lot.insertMany(
-  lots.filter(prune).map(fixDecals).map(matchSchema),
+var arrayLots = lots.filter(prune).map(fixDecals).map(matchSchema);
+var arrayScoot = scoot.map(matchScootSchema);
+var arrayComplete = arrayLots.concat(arrayScoot);
+
+Lot.insertMany(arrayComplete ,
   function (err, docs) {
     if (err) console.log('An error has occured', err);
     else console.log('Success!', docs);

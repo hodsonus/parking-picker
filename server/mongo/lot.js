@@ -19,7 +19,7 @@ var lotSchema = new mongoose.Schema({
   geometry: {
     type: {
       type: String,
-      enum: ['MultiPolygon', 'Polygon'],
+      enum: ['MultiPolygon', 'Polygon', 'Point'],
       required: true,
     },
     coordinates: {
