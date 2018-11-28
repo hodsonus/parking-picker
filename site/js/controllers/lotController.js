@@ -46,6 +46,22 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
   function ($scope, Lots, filterFilter) {
     $scope.loaded = false;
     var map = window.map;
+
+    $scope.popupInfo = {};
+    var date = new Date(Date.now());
+    var year = date.getFullYear().toString().slice(2, 4), //grab the last 2 digits of the year
+        month = date.getMonth() + 1, // months are zero indexed
+        day = date.getDate(),
+        hour = date.getHours(),
+        minute = date.getMinutes(),
+        second = date.getSeconds(),
+        hourFormatted = hour % 12 || 12, // hour returned in 24 hour format
+        minuteFormatted = minute < 10 ? "0" + minute : minute,
+        morning = hour < 12 ? "am" : "pm";
+    var datestring = month + "/" + day + "/" + year + " " + hourFormatted + ":" +
+            minuteFormatted + morning;
+    $scope.date = datestring;
+
     /* Get all the lots, then bind it to the scope */
     map.on('load', function () {
       Lots.getAll().then(function (response) {
@@ -72,11 +88,34 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
         });
 
         map.on('click', LOTS_LAYER_NAME, function (e) {
-          console.log(map.queryRenderedFeatures(e.point));
-          new mapboxgl.Popup()
-            .setLngLat(e.lngLat)
-            .setHTML('')
-            .addTo(map);
+
+          //bind info to the scope
+          map.queryRenderedFeatures(e.point).forEach(function(entry) {
+            if (entry.layer.source == "dblots") {
+              $scope.popupInfo.properties = entry.properties;
+
+              // var fullnessHistory = $scope.popupInfo.properties.history;
+              // var avg;
+              // if (fullnessHistory.length == 0) {
+              //   avg = 0;
+              // }
+              // else {
+              //   var sum = 0;
+              //   var i;
+              //   for (i = 0; i < fullnessHistory.length; i++) {
+              //     sum += fullnessHistory[i];
+              //   }
+              //   avg = sum/fullnessHistory.length;
+              // }
+              // $scope.popupInfo.properties.fullnessAverage = avg;
+            }
+          });
+
+          //update bindings
+          $scope.$apply();
+
+          //toggle the popup
+          $('.modal').toggleClass('is-visible');
         });
 
         // Add zoom and rotation controls to the map.
@@ -142,5 +181,23 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
       $scope.updateMapLayer();
       window.localStorage.setItem('pp-decals', JSON.stringify($scope.selection));
     }
+
+    $scope.submitFullness = function() {
+        // grab the slider from the html
+        var slider = document.getElementById("myRange");
+
+        // grab the fullness from the slider
+        var currFullness = slider.value;
+        var id = $scope.popupInfo.properties.officialId;
+
+        // post to the API
+        Lots.postFullness(currFullness, id).then(function successCallback() {
+          console.log("Lot fullness posted successfully.");
+          location.reload();
+        }, function errorCallback() {
+          console.log("An error occurred when posting the lot fullness.");
+        });
+    };
+
   }
   ]);

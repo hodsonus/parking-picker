@@ -10,6 +10,13 @@ angular.module('lots', []).factory('Lots', function($http) {
 
     delete: function(id) {
       return $http.delete('/api/lots' + id);
+    },
+
+    postFullness: function(currFullness, id) {
+      return $http.post('/api/lots/fullness', {
+      	fullness: currFullness,
+      	officialId: id,
+      });
     }
   };
 
