@@ -16,7 +16,8 @@
 </head>
 <body ng-app="parkingpicker">
   <div></div>
-  <div class="sidenav" ng-controller="LotsController">
+  <div ng-controller="LotsController">
+    <div class="sidenav">
     <header>
       <input type="text" placeholder=" Search for building..">
       <br>
@@ -69,16 +70,6 @@
       });
 
     </script>
-
-
-
-
-
-    /* Sprint 2 Demo: Modal */
-    <div id="mybuttonTEMP">
-      <button class="modal-toggle">Information</button>
-    </div>
-
     <div class="modal">
       <div class="modal-overlay modal-toggle"></div>
       <div class="modal-wrapper modal-transition">
@@ -92,7 +83,8 @@
 
 
             <div id="Summary" class="tabcontent">
-             <div class="lotName"> Norman Garage</div>
+            <!-- TODO, delete the lotName label? there is no associated information with the lots-->
+             <div class="lotName"> </div>
              <hr>
 
              <table bgcolor="white">
@@ -107,14 +99,12 @@
                <b> Allowed Decal(s):</b>
                <hr>
                <ul>
-                <li> Red 1 </li>
-                <li> Red 3 </li>
-                <li> Orange </li>
+                 <li> {{popupInfo.properties.decalRestriction}} </li>
               </ul>
               <br>
               <b> Updated At:</b>
               <hr>
-              11:30:00AM
+              {{date}}
 
             </td>
           </tr>
@@ -124,7 +114,7 @@
       <div id="Rate" class="tabcontent">
 
         <div class="range">
-          <input type="range" min="0" max="9" value="2" class="slider">
+          <input type="range" min="0" max="9" value="2" class="slider" id="myRange">
           <div class="sliderticks">
             <p>Empty</p>
             <p></p>
@@ -138,7 +128,8 @@
             <p>Full</p>
           </div><div></div>
           <div id="mybutton">
-            <button class="modal-toggle"><a href="#" class="mybutton blue"> Submit </a></button>
+             <!-- make call to submitFullness in lotController.js when the button is clicked -->
+             <button class="modal-toggle" ng-click="submitFullness()"><a href="#" class="mybutton blue"> Submit </a></button>
           </div>
         </div>
       </div>
@@ -155,6 +146,7 @@
   </div>
 </div>
 </div>
+</div>
 
 <script src="js/app.js"></script>
 <script src="js/factories/lotFactory.js"></script>
@@ -163,7 +155,6 @@
 
 <script >
   $('.modal-toggle').on('click', function(e) {
-    console.log("Modal Toggled")
     e.preventDefault();
     $('.modal').toggleClass('is-visible');
   });
