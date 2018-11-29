@@ -35,6 +35,7 @@ function matchSchema (l) {
     properties: {
       decalRestriction: l.properties.DECAL,
       officialId: l.properties.OBJECTID,
+      JTYPE: l.properties.JTYPE,
     },
   }
 }
@@ -45,7 +46,8 @@ function matchScootSchema (l) {
     type: 'Feature',
     properties: {
       decalRestriction: 'Motorcycle / Scooter',
-      officialId: ((Math.random() * 100000) + 10000).toString(10), 
+      officialId: ((Math.random() * 100000) + 10000).toString(10),
+      JTYPE: l.properties.JTYPE,
     },
   }
 }
@@ -56,7 +58,7 @@ var arrayLots = lots.filter(prune).map(fixDecals).map(matchSchema);
 var arrayScoot = scoot.map(matchScootSchema);
 var arrayComplete = arrayLots.concat(arrayScoot);
 
-Lot.insertMany(arrayComplete ,
+Lot.insertMany(arrayComplete,
   function (err, docs) {
     if (err) console.log('An error has occured', err);
     else console.log('Success!', docs);

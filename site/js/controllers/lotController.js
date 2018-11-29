@@ -48,6 +48,31 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
     var map = window.map;
     /* Get all the lots, then bind it to the scope */
     map.on('load', function () {
+      map.loadImage('/assets/bike24.png', function (error, image) {
+        if (error) throw error;
+        map.addImage('bike', image);
+        map.addLayer({
+          'id': 'points',
+          'type': 'symbol',
+          'source': {
+            'type': 'geojson',
+            'data': {
+              'type': 'FeatureCollection',
+              'features': [{
+                'type': 'Feature',
+                'geometry': {
+                  'type': 'Point',
+                  'coordinates': [0, 0]
+                }
+              }]
+            }
+          },
+          'layout': {
+            'icon-image': 'bike',
+            'icon-size': 1
+          }
+        });
+      });
       Lots.getAll().then(function (response) {
         $scope.loaded = true;
         $scope.lots = response.data;

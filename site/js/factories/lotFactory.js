@@ -1,16 +1,12 @@
 angular.module('lots', []).factory('Lots', function($http) {
   var methods = {
-    getAll: function() {
+    getAll: function () {
       return $http.get('/api/lots');
     },
-	
-  	create: function(lot) {
-  	  return $http.post('/api/lots', lot);
-    }, 
 
-    delete: function(id) {
-      return $http.delete('/api/lots' + id);
-    }
+    getAllScooters: function () {
+      return $http.get('/api/scooters');
+    },
   };
 
   return methods;
