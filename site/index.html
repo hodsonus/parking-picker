@@ -6,10 +6,12 @@
   <script src='./js/factories/json/lots.js'></script>
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
-
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <link rel="shortcut icon" type="image/png" href="favicon_square.png">
   <style>
   #map{
-   height: 850px;
+   height: 100vh;
    width: 100%;
  }
 </style>
@@ -84,15 +86,29 @@
 
             <div id="Summary" class="tabcontent">
             <!-- TODO, delete the lotName label? there is no associated information with the lots-->
-             <div class="lotName"> </div>
-             <hr>
-
+          
              <table bgcolor="white">
               <tr>
                 <td width="60%">
-                 <div class="percentIMG">
-                  <img src="./assets/full.png" alt="About 30% Full" width="100%">
-                </div>
+                 <div class="flex-wrapper">
+  <div class="single-chart">
+    <svg viewBox="0 0 36 36" class="circular-chart orange">
+      <path class="circle-bg"
+        d="M18 2.0845
+          a 15.9155 15.9155 0 0 1 0 31.831
+          a 15.9155 15.9155 0 0 1 0 -31.831"
+      />
+      <path class="circle"
+        stroke-dasharray="80, 100"
+        d="M18 2.0845
+          a 15.9155 15.9155 0 0 1 0 31.831
+          a 15.9155 15.9155 0 0 1 0 -31.831"
+      />
+      <text x="18" y="20.35" class="percentage">80%</text>
+    </svg>
+  </div>
+  
+</div>
               </td>
 
               <td>
@@ -114,19 +130,20 @@
       <div id="Rate" class="tabcontent">
 
         <div class="range">
-          <input type="range" min="0" max="9" value="2" class="slider" id="myRange">
+          <input type="range" min="0" max="10" value="2" class="slider" id="myRange">
           <div class="sliderticks">
-            <p>Empty</p>
-            <p></p>
-            <p></p>
-            <p>Low</p>
-            <p></p>
-            <p></p>
-            <p>High</p>
-            <p></p>
-            <p></p>
-            <p>Full</p>
-          </div><div></div>
+            <p>0%</p>
+            <p>10%</p>
+            <p>20%</p>
+            <p>30%</p>
+            <p>40%</p>
+            <p>50%</p>
+            <p>60%</p>
+            <p>70%</p>
+            <p>80%</p>
+             <p>90%</p>
+            <p>100%</p>
+          </div><br/>
           <div id="mybutton">
              <!-- make call to submitFullness in lotController.js when the button is clicked -->
              <button class="modal-toggle" ng-click="submitFullness()"><a href="#" class="mybutton blue"> Submit </a></button>
@@ -135,11 +152,11 @@
       </div>
 
       <div id="Statistics" class="tabcontent">
-
-        <button class="collapsible" value="test">+ Show Graph</button>
-        <div class="graph">
-          <img src="./assets/graph.png" alt="Graph" height=100% width=100%>
-        </div>
+     <div class="container">
+    <canvas id="myChart" weight="95%"></canvas>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+  <script src="js/graph.js"></script>
       </div>
 
     </div>
