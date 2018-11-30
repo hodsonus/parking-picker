@@ -14,11 +14,12 @@ var lotSchema = new mongoose.Schema({
     history: { type: [currentOccupencySchema] },
     decalRestriction: { type: String, required: true },
     officialId: { type: String, required: true },
+    JTYPE: { type: String, enum: ['PARKING_LOT', 'SCOOTERS'] },
   },
   geometry: {
     type: {
       type: String,
-      enum: ['MultiPolygon', 'Polygon'],
+      enum: ['MultiPolygon', 'Polygon', 'Point'],
       required: true,
     },
     coordinates: {

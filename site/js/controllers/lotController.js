@@ -42,6 +42,12 @@ function filterLots (lots, decals) {
 
 var LOTS_LAYER_NAME = 'parkinglots';
 var BLDG_LAYER_NAME = 'buildings';
+var SCOOTERS_LAYER_NAME = 'scooters'
+
+var EMPTY_GEOJSON = {
+  type: 'FeatureCollection',
+  features: [],
+}
 angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFilter',
   function ($scope, Lots, filterFilter) {
     $scope.loaded = false;
@@ -64,89 +70,152 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
 
     /* Get all the lots, then bind it to the scope */
     map.on('load', function () {
-      Lots.getAll().then(function (response) {
-        $scope.loaded = true;
-        $scope.lots = response.data;
-        map.addSource('dblots', {
-          type: 'geojson',
-          data: (function () {
-            var data = {};
-            Object.assign(data, $scope.lots);
-            data.features = filterLots(data.features, $scope.selection);
-            return data;
-          })()
+      map.loadImage('/assets/bike24.png', function (error, image) {
+        if (error) throw error;
+        map.addImage('bike', image);
+        // map.addLayer({
+        //   'id': 'points',
+        //   'type': 'symbol',
+        //   'source': {
+        //     'type': 'geojson',
+        //     'data': {
+        //       'type': 'FeatureCollection',
+        //       'features': [{
+        //         'type': 'Feature',
+        //         'geometry': {
+        //           'type': 'Point',
+        //           'coordinates': [0, 0]
+        //         }
+        //       }]
+        //     }
+        //   },
+        //   'layout': {
+        //     'icon-image': 'bike',
+        //     'icon-size': 1
+        //   }
+        // });
+        var gettingScooters = Lots.getAllScooters().then(function (response) {
+          $scope.scooters = response.data;
+          console.log('data', ($scope.selection.includes('Motorcycle / Scooter') || !$scope.selection.length) ? response.data : EMPTY_GEOJSON);
+          map.addSource('scootersLots', {
+            type: 'geojson',
+            data: ($scope.selection.includes('Motorcycle / Scooter') || !$scope.selection.length) ? response.data : EMPTY_GEOJSON,
+          });
+
+          map.addLayer({
+            id: SCOOTERS_LAYER_NAME,
+            type: 'symbol',
+            source: 'scootersLots',
+            layout: {
+              'icon-image': 'bike',
+              'icon-size': 1
+            }
+          })
+        }).catch(function (error) {
+          console.error(error);
         })
-        map.addLayer({
-          'id': LOTS_LAYER_NAME,
-          'type': 'fill',
-          'source': 'dblots',
-          'layout': {},
-          'paint': {
-            'fill-color': '#088',
-            'fill-opacity': 0.8
-          }
-        });
-
-        map.on('click', LOTS_LAYER_NAME, function (e) {
-
-          //bind info to the scope
-          map.queryRenderedFeatures(e.point).forEach(function(entry) {
-            if (entry.layer.source == "dblots") {
-              $scope.popupInfo.properties = entry.properties;
-
-              // var fullnessHistory = $scope.popupInfo.properties.history;
-              // var avg;
-              // if (fullnessHistory.length == 0) {
-              //   avg = 0;
-              // }
-              // else {
-              //   var sum = 0;
-              //   var i;
-              //   for (i = 0; i < fullnessHistory.length; i++) {
-              //     sum += fullnessHistory[i];
-              //   }
-              //   avg = sum/fullnessHistory.length;
-              // }
-              // $scope.popupInfo.properties.fullnessAverage = avg;
+        var gettingLots = Lots.getAll().then(function (response) {
+          $scope.lots = response.data;
+          map.addSource('dblots', {
+            type: 'geojson',
+            data: (function () {
+              var data = {};
+              Object.assign(data, $scope.lots);
+              data.features = filterLots(data.features, $scope.selection);
+              return data;
+            })()
+          })
+          map.addLayer({
+            'id': LOTS_LAYER_NAME,
+            'type': 'fill',
+            'source': 'dblots',
+            'layout': {},
+            'paint': {
+              'fill-color': '#088',
+              'fill-opacity': 0.8
             }
           });
 
-          //update bindings
-          $scope.$apply();
+          map.on('click', SCOOTERS_LAYER_NAME, function (e) {
 
-          //toggle the popup
-          $('.modal').toggleClass('is-visible');
+            //bind info to the scope
+            map.queryRenderedFeatures(e.point).forEach(function (entry) {
+              if (entry.layer.source === 'scootersLots') {
+                $scope.popupInfo.properties = entry.properties;
+              }
+            });
+
+            // update bindings
+            $scope.$apply();
+
+            // toggle the popup
+            $('.modal').toggleClass('is-visible');
+          });
+
+          map.on('click', LOTS_LAYER_NAME, function (e) {
+
+            //bind info to the scope
+            map.queryRenderedFeatures(e.point).forEach(function(entry) {
+              if (entry.layer.source === 'dblots' || entry.layer.source === 'scootersLots') {
+                $scope.popupInfo.properties = entry.properties;
+
+                // var fullnessHistory = $scope.popupInfo.properties.history;
+                // var avg;
+                // if (fullnessHistory.length == 0) {
+                //   avg = 0;
+                // }
+                // else {
+                //   var sum = 0;
+                //   var i;
+                //   for (i = 0; i < fullnessHistory.length; i++) {
+                //     sum += fullnessHistory[i];
+                //   }
+                //   avg = sum/fullnessHistory.length;
+                // }
+                // $scope.popupInfo.properties.fullnessAverage = avg;
+              }
+            });
+
+            // update bindings
+            $scope.$apply();
+
+            // toggle the popup
+            $('.modal').toggleClass('is-visible');
+          });
+          // Add zoom and rotation controls to the map.
+          map.addControl(new mapboxgl.NavigationControl());
+          console.log(lotArray);
+
+          // Change the cursor to a pointer when the mouse is over the states layer.
+          map.on('mouseenter', LOTS_LAYER_NAME, function () {
+            map.getCanvas().style.cursor = 'pointer';
+          });
+
+          // Change it back to a pointer when it leaves.
+          map.on('mouseleave', LOTS_LAYER_NAME, function () {
+            map.getCanvas().style.cursor = '';
+          });
+        }).catch(function (error) {
+          console.log('Unable to retrieve lots:', error);
+        }).then(function () {
+          map.addLayer({
+            'id': BLDG_LAYER_NAME,
+            'type': 'symbol',
+            'source': {
+              type: 'geojson',
+              data: '/api/buildings',
+            },
+            'layout': {
+              'text-field': '{MAP_NAME}',
+              'text-offset': [0, 0.6],
+              'text-anchor': 'top'
+            },
+          });
         });
 
-        // Add zoom and rotation controls to the map.
-        map.addControl(new mapboxgl.NavigationControl());
-        console.log(lotArray);
-
-        // Change the cursor to a pointer when the mouse is over the states layer.
-        map.on('mouseenter', LOTS_LAYER_NAME, function () {
-          map.getCanvas().style.cursor = 'pointer';
-        });
-
-        // Change it back to a pointer when it leaves.
-        map.on('mouseleave', LOTS_LAYER_NAME, function () {
-          map.getCanvas().style.cursor = '';
-        });
-      }).catch(function (error) {
-        console.log('Unable to retrieve lots:', error);
-      }).then(function () {
-        map.addLayer({
-          'id': BLDG_LAYER_NAME,
-          'type': 'symbol',
-          'source': {
-            type: 'geojson',
-            data: '/api/buildings',
-          },
-          'layout': {
-            'text-field': '{MAP_NAME}',
-            'text-offset': [0, 0.6],
-            'text-anchor': 'top'
-          },
-        });
+        Promise.all([gettingScooters, gettingLots]).then(function () {
+          $scope.loaded = true;
+        })
       });
     })
 
@@ -175,6 +244,7 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
       Object.assign(data, $scope.lots);
       data.features = filterLots(data.features, $scope.selection);
       map.getSource('dblots').setData(data);
+      map.getSource('scootersLots').setData(($scope.selection.includes('Motorcycle / Scooter') || !$scope.selection.length) ? $scope.scooters : EMPTY_GEOJSON);
     }
 
     $scope.save = function () {

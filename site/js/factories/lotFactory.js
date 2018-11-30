@@ -1,21 +1,17 @@
 angular.module('lots', []).factory('Lots', function($http) {
   var methods = {
-    getAll: function() {
+    getAll: function () {
       return $http.get('/api/lots');
     },
-	
-  	create: function(lot) {
-  	  return $http.post('/api/lots', lot);
-    }, 
 
-    delete: function(id) {
-      return $http.delete('/api/lots' + id);
+    getAllScooters: function () {
+      return $http.get('/api/scooters');
     },
 
-    postFullness: function(currFullness, id) {
+    postFullness: function (currFullness, id) {
       return $http.post('/api/lots/fullness', {
-      	fullness: currFullness,
-      	officialId: id,
+        fullness: currFullness,
+        officialId: id,
       });
     }
   };
