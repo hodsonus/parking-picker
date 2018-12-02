@@ -121,7 +121,7 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
             //bind info to the scope
             map.queryRenderedFeatures(e.point).forEach(function (entry) {
               if (entry.layer.source === 'scootersLots') {
-                $scope.popupInfo.properties = entry.properties;
+                 $scope.updatepopup(entry);
               }
             });
 
@@ -137,7 +137,7 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
             //bind info to the scope
             map.queryRenderedFeatures(e.point).forEach(function(entry) {
               if (entry.layer.source === 'dblots' || entry.layer.source === 'scootersLots') {
-                $scope.popupInfo.properties = entry.properties;
+                 $scope.updatepopup(entry);
 
                 // var fullnessHistory = $scope.popupInfo.properties.history;
                 // var avg;
@@ -269,5 +269,12 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
         });
     };
 
+    $scope.updatepopup = function(entry) {
+
+      $scope.popupInfo.properties = entry.properties; //updates the popup info
+      var fullness = JSON.parse(entry.properties.history);
+      $scope.popupInfo.properties.fullness = fullness[fullness.length-1];
+
+    }
   }
   ]);
