@@ -435,12 +435,12 @@
 
 
   .blue {
-    background-color: #55acee;
+    background-color: #6FC6FF;
     
   }
 
   .blue:hover {
-    background-color: #6FC6FF;
+    background-color: #55acee;
   }
 
   .white {
