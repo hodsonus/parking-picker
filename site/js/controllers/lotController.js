@@ -207,7 +207,7 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
             'layout': {
               'text-field': '{MAP_NAME}',
               'text-font': ['literal', [ 'DIN Offc Pro Italic', 'Arial Unicode MS Regular' ]],
-              'text-size': 17,
+              'text-size': 16,
               'text-offset': [0, 0.6],
               'text-anchor': 'top'
             },
