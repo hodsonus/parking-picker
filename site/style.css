@@ -17,7 +17,7 @@
 
   .sidenav {
     height: 100%;
-    width: 25%;
+    width: 260px;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -45,9 +45,9 @@
   width: 88%;
   height:25px;
 
-
+  padding: 5px;
   position:relative;
-  top: 100px;
+  top: 105px;
 
   margin-left: 15px;
   border: 1px solid #ccc;
@@ -63,15 +63,13 @@
   display:inline-block;
 }
 
+
 .floating-box {
   width: 88%;
-  height: 580px;
-
+  height: 575px;
   position:relative;
   top: 120px;
   margin-left: 15px;
-
-
   background: #ffffff;
   box-shadow: 1px 1px 3px #A4A4A4;
   border-radius:6px;
@@ -225,212 +223,216 @@
   position: absolute;
   z-index: 9999;
   top: 6em;
-    /*
-    left: 50%;
-    width: 32em;
-    margin-left: -16em;
-    */
-    left: 40%;
-    width: 39em;
-    margin-left: -10em;
-    background-color: #fff;
-    box-shadow: 0 0 1.5em hsla(0, 0%, 0%, 0.35);
-  }
-
-  .modal-transition {
-    transition: all 0.3s 0.12s;
-    transform: translateY(-10%);
-    opacity: 0;
-  }
-
-  .modal.is-visible .modal-transition {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  .modal-header,
-  .modal-content {
-    padding: 0.3em;
-    font-size :100%;
-  }
-
-  .modal-header {
-    position: relative;
-    background-color: #fff;
-    box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.06);
-    border-bottom: 1px solid #e8e8e8;
-  }
-
-  .modal-close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 1em;
-    color: #aaa;
-    background: none;
-    border: 0;
-  }
-
-  .modal-close:hover {
-    color: #777;
-  }
-
-  .modal-heading {
-    font-size: 20px;
-    margin: 0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-
- /*----------------*/
-  /*    Loader      */
-  /*----------------*/
-
-  #loading {
-    background: url('assets/Spinner-1s-200px.gif') no-repeat center center;
-    position: absolute;
-    height: 100%;
-    width: 100%;
+  
+  left: 40%;
+  width: 35em;
+  margin-left: -10em;
+  background-color: #fff;
+  box-shadow: 0 0 1.5em hsla(0, 0%, 0%, 0.35);
 }
-  /*----------------*/
-  /*    Slider      */
-  /*----------------*/
 
-  * {
-    box-sizing: border-box;
-  }
+.modal-transition {
+  transition: all 0.3s 0.12s;
+  transform: translateY(-10%);
+  opacity: 0;
+}
 
-  .slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 23px;
-    background: #D3D3D3;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-  }
+.modal.is-visible .modal-transition {
+  transform: translateY(0);
+  opacity: 1;
+}
 
-  .slider:hover {
-    opacity: 1;
-  }
+.modal-header,
+.modal-content {
+  padding: 0.3em;
+  font-size :100%;
+}
 
-  .slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 23px;
-    height: 23px;
-    background: #3581b8;
-    cursor: pointer;
-  }
+.modal-header {
+  position: relative;
+  background-color: #fff;
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.06);
+  border-bottom: 1px solid #e8e8e8;
+}
 
-  .slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    background: #FF0000;
-    cursor: pointer;
-  }
+.modal-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1em;
+  color: #aaa;
+  background: none;
+  border: 0;
+}
 
-  .sliderticks {
-    display: flex;
-    font-size:12px;
-    justify-content: space-between;
-    padding: 0 10px;
-  }
+.modal-close:hover {
+  color: #777;
+}
 
-  .sliderticks p {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    width: 1px;
-    background: #D3D3D3;
-    height: 10px;
-    line-height: 40px;
-    margin: 0 0 20px 0;
-  }
+.modal-heading {
+  font-size: 20px;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 
-  /* Style the button that is used to open and close the collapsible content */
-  .collapsible {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    padding: 10px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-  }
+/*----------------*/
+/*    Loader      */
+/*----------------*/
 
-  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-  .active, .collapsible:hover {
-    background-color: #ccc;
-  }
+#loading {
+  background: url('assets/Spinner-1s-200px.gif') no-repeat center center;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+/*----------------*/
+/*    Slider      */
+/*----------------*/
 
-  /* Style the collapsible content. Note: hidden by default */
-  .graph {
-    padding: 10px 0px 0px 0px;
-    display: none;
-    overflow: hidden;
-    
-  }
+* {
+  box-sizing: border-box;
+}
 
-  .modal-toggle{
-    padding:0;
-    border-radius: 5px;
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 23px;
+  background: #D3D3D3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
 
-  }
+.slider:hover {
+  opacity: 1;
+}
 
-  #mybuttonTEMP {
-    position: fixed;
-    bottom: -4px;
-    right: 10px;
-  }
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 23px;
+  height: 23px;
+  background: #3581b8;
+  cursor: pointer;
+}
 
-  #mybutton{
-    text-align:center;
-    margin-top: 0px;
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #FF0000;
+  cursor: pointer;
+}
 
-  }
+.sliderticks {
+  display: flex;
+  font-size:12px;
+  justify-content: space-between;
+  padding: 0 10px;
+}
 
-  .mybutton {
-    border-radius: 5px;
-    padding: 8px 15px;
-    font-size: 18px;
-    text-decoration: none;
-    color: #fff;
-    position: relative;
-    display: inline-block;
-  }
-  .mybutton:active {
-    transform: translate(0px, 2px);
-    -webkit-transform: translate(0px, 2px);
-    box-shadow: 0px 1px 0px 0px;
-  }
+.sliderticks p {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 1px;
+  background: #D3D3D3;
+  height: 10px;
+  line-height: 40px;
+  margin: 0 0 20px 0;
+}
 
 
-  .blue {
-    background-color: #55acee;
-    
-  }
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
 
-  .blue:hover {
-    background-color: #6FC6FF;
-  }
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
 
-  .white {
-   font-family: Helvetica, Arial, Sans-Serif;
-   background-color: #ffffff;
-   color: #2196F3;
-   border: 1px solid #2196F3;
-   padding:6px 15px;  
- }
+/* Style the collapsible content. Note: hidden by default */
+.graph {
+  padding: 10px 0px 0px 0px;
+  display: none;
+  overflow: hidden;
+  
+}
 
- .white:hover {
+.modal-toggle{
+  padding:0;
+  border-radius: 5px;
+
+}
+
+#mybutton{
+  text-align:center;
+  margin-top: 0px;
+
+}
+
+.mybutton {
+  font-family: Helvetica, Arial, Sans-Serif;
+  border-radius: 5px;
+  padding: 8px 15px;
+  font-size: 16px;
+  text-decoration: none;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+  border: 1px solid #2196F3;
+
+}
+
+.mybutton:active {
+  transform: translate(0px, 2px);
+  -webkit-transform: translate(0px, 2px);
+  box-shadow: 0px 1px 0px 0px;
+}
+
+.blue {
+  background-color: #55acee;    
+}
+
+.blue:hover {
+  background-color: #6FC6FF;
+
+}
+
+.white {
+ background-color: #ffffff;
+ color: #2196F3;
+ border: 1px solid #2196F3;
+ padding:6px 10px;  
+}
+
+.whitelong {
+ background-color: #ffffff;
+ color: #2196F3;
+ padding:6px 42px;  
+}
+
+.white:hover {
+  background-color: #2196F3;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.whitelong:hover {
   background-color: #2196F3;
   color: #ffffff;
   cursor: pointer;
@@ -485,7 +487,7 @@
 }
 
 .single-chart {
-  width: 36%;
+  width: 42%;
 
 }
 
@@ -533,7 +535,7 @@
 }
 
 .lotInfo-a {
-  text-align: center;
+ 
   font-size: 14px;
 }
 
@@ -547,6 +549,7 @@
 }
 .lotInfo-b {
   text-align: center;
+  color: #2c3e50;
   font-size: 14px;
 }
 
@@ -563,16 +566,24 @@ hr{
   margin:0 0 15px;
 }
 
-
+.spacer{
+  height:20px;
+}
 td{
-  padding:15px;
+  padding:5px;
 }
 
 ul{
   display:table;
-  margin:0 auto;
+  margin:10px;
 }
 
+li{
+  color: #2c3e50;
+  line-height: 20px;
+  text-align: justify;
+  letter-spacing: 1px;
+}
 
 #Summary {background-color: #F8F9F9;}
 #Rate {background-color: #F8F9F9;}

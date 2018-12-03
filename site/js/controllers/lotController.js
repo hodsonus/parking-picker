@@ -86,7 +86,6 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
         if (error) throw error;
         map.addImage('bike', image);
         var gettingScooters;
-
         var gettingLots = Lots.getAll().then(function (response) {
           $scope.lots = response.data;
           map.addSource('dblots', {
@@ -207,7 +206,7 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
             'layout': {
               'text-field': '{MAP_NAME}',
               'text-font': ['literal', [ 'DIN Offc Pro Italic', 'Arial Unicode MS Regular' ]],
-              'text-size': 16,
+              'text-size': 17,
               'text-offset': [0, 0.6],
               'text-anchor': 'top'
             },
@@ -306,7 +305,7 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
 
         if (!matchingBldg) return;
 
-        map.flyTo({ center: matchingBldg.geometry.coordinates });
+        map.flyTo({ center: matchingBldg.geometry.coordinates,zoom:16.5});
       }
     }
 
