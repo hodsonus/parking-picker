@@ -260,10 +260,15 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
 
       $scope.popupInfo.properties = entry.properties; //updates the popup info
       var fullness = JSON.parse(entry.properties.history);
+      if (fullness.length === 0){
+        fullness.push({fullness: 0, time: "0000-00-00T00:00:00.000Z"});
+      }
       $scope.popupInfo.properties.fullness = fullness[fullness.length-1];
       $scope.popupInfo.properties.fullness.fullness = $scope.popupInfo.properties.fullness.fullness*10
+      $scope.updategraph(entry);
 
     }
+
 
     $scope.buildingSearch = null;
     $scope.focusBuilding = function ($event) {
@@ -280,5 +285,53 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
         map.flyTo({ center: matchingBldg.geometry.coordinates });
       }
     }
+
+    $scope.updategraph = function (entry) {
+      var fullness = JSON.parse(entry.properties.history);
+      if (fullness.length === 0) {
+        fullness.push({ fullness: 0, time: "0000-00-00T00:00:00.000Z" });
+      }
+      var today = new Date();
+      var todayweekday = today.getDay();
+      var todayArray = [];
+      var todaySimplified = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+      fullness.forEach(function (element) {
+        var d = new Date(element.time);
+        var n = d.getDay();
+        if (n === todayweekday) {
+          todayArray.push(element);
+        }
+      });
+      for (var x = 0; x < 24; x++) {
+        var avgArray = [];
+        var avg = 0;
+        todayArray.forEach(function (element) {
+          var d = new Date(element.time);
+          var n = d.getHours();
+          if (n === x) {
+            avgArray.push(element.fullness * 10);
+          }
+        });
+
+        avgArray.forEach(function (element) {
+          avg += element;
+        });
+        if (avgArray.length === 0) {
+          todaySimplified[x] = 0;
+        } else {
+          avg = avg / avgArray.length;
+          todaySimplified[x] = avg;
+        }
+
+      }
+
+      // var barchart exists in graph.js
+      barchart.data.datasets[0].data = todaySimplified;
+
+      barchart.update();
+    }
+
+
   }
   ]);
