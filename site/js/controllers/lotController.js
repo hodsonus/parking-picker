@@ -68,32 +68,13 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
             minuteFormatted + morning;
     $scope.date = datestring;
 
+    $scope.buildings = null;
+
     /* Get all the lots, then bind it to the scope */
     map.on('load', function () {
       map.loadImage('/assets/bike24.png', function (error, image) {
         if (error) throw error;
         map.addImage('bike', image);
-        // map.addLayer({
-        //   'id': 'points',
-        //   'type': 'symbol',
-        //   'source': {
-        //     'type': 'geojson',
-        //     'data': {
-        //       'type': 'FeatureCollection',
-        //       'features': [{
-        //         'type': 'Feature',
-        //         'geometry': {
-        //           'type': 'Point',
-        //           'coordinates': [0, 0]
-        //         }
-        //       }]
-        //     }
-        //   },
-        //   'layout': {
-        //     'icon-image': 'bike',
-        //     'icon-size': 1
-        //   }
-        // });
         var gettingScooters;
         var gettingLots = Lots.getAll().then(function (response) {
           $scope.lots = response.data;
@@ -199,13 +180,17 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
             console.error(error);
           });
         }).then(function () {
+          return Lots.getBuildings();
+        }).then(function (response) {
+          $scope.buildings = response.data;
+          map.addSource('buildings', {
+            type: 'geojson',
+            data: response.data,
+          });
           map.addLayer({
             'id': BLDG_LAYER_NAME,
             'type': 'symbol',
-            'source': {
-              type: 'geojson',
-              data: '/api/buildings',
-            },
+            'source': 'buildings',
             'layout': {
               'text-field': '{MAP_NAME}',
               'text-offset': [0, 0.6],
@@ -255,20 +240,20 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
     }
 
     $scope.submitFullness = function() {
-        // grab the slider from the html
-        var slider = document.getElementById("myRange");
+      // grab the slider from the html
+      var slider = document.getElementById("myRange");
 
-        // grab the fullness from the slider
-        var currFullness = slider.value;
-        var id = $scope.popupInfo.properties.officialId;
+      // grab the fullness from the slider
+      var currFullness = slider.value;
+      var id = $scope.popupInfo.properties.officialId;
 
-        // post to the API
-        Lots.postFullness(currFullness, id).then(function successCallback() {
-          console.log("Lot fullness posted successfully.");
-          location.reload();
-        }, function errorCallback() {
-          console.log("An error occurred when posting the lot fullness.");
-        });
+      // post to the API
+      Lots.postFullness(currFullness, id).then(function successCallback() {
+        console.log("Lot fullness posted successfully.");
+        location.reload();
+      }, function errorCallback() {
+        console.log("An error occurred when posting the lot fullness.");
+      });
     };
 
     $scope.updatepopup = function(entry) {
@@ -278,6 +263,22 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
       $scope.popupInfo.properties.fullness = fullness[fullness.length-1];
       $scope.popupInfo.properties.fullness.fullness = $scope.popupInfo.properties.fullness.fullness*10
 
+    }
+
+    $scope.buildingSearch = null;
+    $scope.focusBuilding = function ($event) {
+      if ($event.keyCode === 13) {
+        var matchingBldg = $scope.buildings.features.filter(function (bldg) {
+          return bldg.properties.ABBREV.toLowerCase().includes($scope.buildingSearch)
+            || bldg.properties.COMMON_NAME.toLowerCase().includes($scope.buildingSearch)
+            || bldg.properties.MAP_NAME.toLowerCase().includes($scope.buildingSearch)
+            || bldg.properties.NAME.toLowerCase().includes($scope.buildingSearch);
+        })[0];
+
+        if (!matchingBldg) return;
+
+        map.flyTo({ center: matchingBldg.geometry.coordinates });
+      }
     }
   }
   ]);

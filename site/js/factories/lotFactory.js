@@ -13,6 +13,10 @@ angular.module('lots', []).factory('Lots', function($http) {
         fullness: currFullness,
         officialId: id,
       });
+    },
+
+    getBuildings: function () {
+      return $http.get('/api/buildings');
     }
   };
 

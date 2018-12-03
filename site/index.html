@@ -21,7 +21,7 @@
   <div ng-controller="LotsController">
     <div class="sidenav">
     <header>
-      <input type="text" placeholder=" Search for building..">
+      <input ng-model="buildingSearch" ng-keyup="focusBuilding($event)" type="text" placeholder=" Search for building..">
       <br>
 
       <div class = "floating-box">
