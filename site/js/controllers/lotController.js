@@ -309,7 +309,7 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
           var d = new Date(element.time);
           var n = d.getHours();
           if (n === x){
-            avgArray.push(element.fullness);
+            avgArray.push(element.fullness*10);
           }
         });
 
