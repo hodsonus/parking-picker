@@ -274,6 +274,7 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
       $scope.popupInfo.properties = entry.properties; //updates the popup info
       var fullness = JSON.parse(entry.properties.history);
       $scope.popupInfo.properties.fullness = fullness[fullness.length-1];
+      $scope.popupInfo.properties.fullness.fullness = $scope.popupInfo.properties.fullness.fullness*10
 
     }
   }
