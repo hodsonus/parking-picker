@@ -94,6 +94,7 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
         //     'icon-size': 1
         //   }
         // });
+        var gettingScooters;
         var gettingLots = Lots.getAll().then(function (response) {
           $scope.lots = response.data;
           map.addSource('dblots', {
@@ -178,7 +179,7 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
         }).catch(function (error) {
           console.log('Unable to retrieve lots:', error);
         }).then(function () {
-          var gettingScooters = Lots.getAllScooters().then(function (response) {
+          gettingScooters = Lots.getAllScooters().then(function (response) {
             $scope.scooters = response.data;
             console.log('data', ($scope.selection.includes('Motorcycle / Scooter') || !$scope.selection.length) ? response.data : EMPTY_GEOJSON);
             map.addSource('scootersLots', {
@@ -250,6 +251,7 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
     $scope.save = function () {
       $scope.updateMapLayer();
       window.localStorage.setItem('pp-decals', JSON.stringify($scope.selection));
+
     }
 
     $scope.submitFullness = function() {
