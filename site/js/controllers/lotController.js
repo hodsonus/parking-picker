@@ -104,7 +104,7 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
             'layout': {},
             'paint': {
               'fill-color': '#088',
-              'fill-opacity': 0.8
+              'fill-opacity': 0.7
             }
           });
 
@@ -170,6 +170,7 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
         }).catch(function (error) {
           console.log('Unable to retrieve lots:', error);
         }).then(function () {
+
           gettingScooters = Lots.getAllScooters().then(function (response) {
             $scope.scooters = response.data;
             console.log('data', ($scope.selection.includes('Motorcycle / Scooter') || !$scope.selection.length) ? response.data : EMPTY_GEOJSON);
@@ -197,12 +198,15 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
             type: 'geojson',
             data: response.data,
           });
+
           map.addLayer({
             'id': BLDG_LAYER_NAME,
             'type': 'symbol',
             'source': 'buildings',
             'layout': {
               'text-field': '{MAP_NAME}',
+              'text-font': ['literal', [ 'DIN Offc Pro Italic', 'Arial Unicode MS Regular' ]],
+              'text-size': 17,
               'text-offset': [0, 0.6],
               'text-anchor': 'top'
             },
@@ -301,7 +305,7 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
 
         if (!matchingBldg) return;
 
-        map.flyTo({ center: matchingBldg.geometry.coordinates });
+        map.flyTo({ center: matchingBldg.geometry.coordinates,zoom:16.5});
       }
     }
 
