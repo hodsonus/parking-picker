@@ -21,7 +21,7 @@
  }
 </style>
 
-<!------ Title  ------> 
+<!--     Title      --> 
 <title> UF Parking Picker </title>
 </head>
 <body ng-app="parkingpicker">
@@ -30,7 +30,7 @@
   <div></div>
   <div ng-controller="LotsController">
 
-    <!------ Side Bar  ------> 
+    <!--     Side Bar      --> 
     <div class="sidenav">
 
     <header>
@@ -38,7 +38,7 @@
       <br>
 
 
-        <!------ Decal Filter  ------> 
+        <!--     Decal Filter      --> 
         <div class = "floating-box">
           <div class ="title"><b>Decals</b></div>
 
@@ -62,7 +62,7 @@
          </form>
 
 
-         <!------ Save Button  ------> 
+         <!--     Save Button      --> 
 
          <div id="mybutton">
            <div class='mybutton white' ng-disabled='!loaded' ng-click="clear()">Clear </div>
@@ -77,7 +77,7 @@
        </div>
      </div>
 
-     <!------ Mapbox ------> 
+     <!--     Mapbox     --> 
 
      <div id='map'></div>
      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -106,21 +106,20 @@
     </script>
 
 
-    <!------ Pop Up ------> 
+    <!--     Pop Up     --> 
 
     <div class="modal">
       <div class="modal-overlay modal-toggle"></div>
       <div class="modal-wrapper modal-transition">
 
-        <div class="modal-body">
-          <div class="modal-content">
+        <div class="modal-content">
 
-            <button class="tablink" onclick="openPage('Summary', this, '#F8F9F9')" id="defaultOpen">Summary</button>
-            <button class="tablink" onclick="openPage('Rate', this,'#F8F9F9' )">Rate Fullness</button>
-            <button class="tablink" onclick="openPage('Statistics', this,'#F8F9F9')">Analysis</button>
+          <button class="tablink" onclick="openPage('Summary', this, '#F8F9F9')" id="defaultOpen">Summary</button>
+          <button class="tablink" onclick="openPage('Rate', this,'#F8F9F9' )">Rate Fullness</button>
+          <button class="tablink" onclick="openPage('Statistics', this,'#F8F9F9')">Analysis</button>
 
 
-            <!------ PopUp: Summary  ------> 
+          <!--     PopUp: Summary      --> 
 
             <div id="Summary" class="tabcontent">
             <!-- TODO, delete the lotName label? there is no associated information with the lots-->
@@ -187,9 +186,9 @@
             <div class="lotInfo">
               <div class="lotInfo-a">
                <div class="title"><b> Allowed Decal</b></div>
-                <p> {{popupInfo.properties.decalRestriction}}</p>
-              </div>
-              <div class="lotInfo-b">
+               <p> {{popupInfo.properties.decalRestriction}}</p>
+             </div>
+             <div class="lotInfo-b">
                <div class="title"><b>Last Updated At</b></div>
                 <p>{{date}}</p>
               </div>
@@ -228,12 +227,38 @@
             <div id="mybutton">
              <!-- make call to submitFullness in lotController.js when the button is clicked -->
              <button class="modal-toggle" ng-click="submitFullness()"><a href="#" class="mybutton blue"> Submit </a></button>
+
            </div>
          </div>
+
        </div>
 
 
-       <!------ PopUp: Graph  ------> 
+       <!--     PopUp: Rating Slider      --> 
+
+       <div id="Rate" class="tabcontent">
+
+        <div class="range">
+          <input type="range" min="0" max="10" value="2" class="slider" id="myRange">
+          <div class="sliderticks">
+            <p>0%</p>
+            <p>10%</p>
+            <p>20%</p>
+            <p>30%</p>
+            <p>40%</p>
+            <p>50%</p>
+            <p>60%</p>
+            <p>70%</p>
+            <p>80%</p>
+            <p>90%</p>
+            <p>100%</p>
+          </div><br/>
+          <div id="mybutton">
+           <!-- make call to submitFullness in lotController.js when the button is clicked -->
+           <button class="modal-toggle" ng-click="submitFullness()"><a href="#" class="mybutton blue"> Submit </a></button>
+         </div>
+       </div>
+     </div>
 
        <div id="Statistics" class="tabcontent">
          <div class="container">
@@ -244,8 +269,19 @@
 
       </div>
 
+
+     <!--     PopUp: Graph      --> 
+
+     <div id="Statistics" class="tabcontent">
+       <div class="container">
+        <canvas id="myChart" weight="95%"></canvas>
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+      <script src="js/graph.js"></script>
     </div>
+
   </div>
+</div>
 </div>
 </div>
 </div>
@@ -255,14 +291,14 @@
 <script src="js/factories/lotFactory.js"></script>
 <script src="js/controllers/lotController.js"></script>
 
-<!------ Loader  ------> 
+<!--     Loader      --> 
 <script>
-$(window).ready(function() {
+  $(window).ready(function() {
     $('#loading').hide();
-});
+  });
 </script>
 
-<!------ Pull up Popup/Modal  ------> 
+<!--     Pull up Popup/Modal      --> 
 <script >
   $('.modal-toggle').on('click', function(e) {
     e.preventDefault();
@@ -270,7 +306,7 @@ $(window).ready(function() {
   });
 </script>
 
-<!------ Collapisible/Drop down  ------> 
+<!--     Collapisible/Drop down      --> 
 <script>
   var coll = document.getElementsByClassName("collapsible");
   var i;
@@ -289,7 +325,7 @@ $(window).ready(function() {
   }
 </script>
 
-<!------ Switch between tabs  ------> 
+<!--     Switch between tabs      --> 
 <script>
   function openPage(pageName, elmnt,color) {
     // Hide all elements with class="tabcontent" by default */
