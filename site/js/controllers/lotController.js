@@ -249,6 +249,15 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
 
     }
 
+    $scope.clear = function () {
+      $scope.decalRestrictions = $scope.decalRestrictions.map(function (res) {
+        return {
+          ...res,
+          selected: false,
+        }
+      });
+    }
+
     $scope.submitFullness = function() {
       // grab the slider from the html
       var slider = document.getElementById("myRange");
