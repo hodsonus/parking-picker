@@ -17,7 +17,7 @@
 
   .sidenav {
     height: 100%;
-    width: 260px;
+    width: 250px;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -66,7 +66,7 @@
 
   .floating-box {
     width: 88%;
-    height: 580px;
+    height: 620px;
 
     position:relative;
     top: 120px;
@@ -435,12 +435,12 @@
 
 
   .blue {
-    background-color: #6FC6FF;
+    background-color: #55acee;
     
   }
 
   .blue:hover {
-    background-color: #55acee;
+    background-color: #6FC6FF;
   }
 
   .white {
