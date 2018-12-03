@@ -25,7 +25,15 @@ const decalMap = {
   getDecals: function () { return Object.keys(this.decalTypes) },
 
   // Given a valid decal name, returns an array with the parking options you have available
-  getParkingOptions: function (decal) { return this.decalTypes[decal] }
+  getParkingOptions: function (decal) { return this.decalTypes[decal] },
+
+  // Gets the decals that are allowed to park at a lot with restriction res
+  getDecalsForRestriction: function (res) {
+    var self = this;
+    return this.getDecals().filter(function (decal) {
+      return self.getParkingOptions(decal).includes(res);
+    });
+  }
 }
 
 function filterLots (lots, decals) {
@@ -69,6 +77,8 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
     $scope.date = datestring;
 
     $scope.buildings = null;
+
+    $scope.getDecalsForRestriction = function (res) { return decalMap.getDecalsForRestriction(res) };
 
     /* Get all the lots, then bind it to the scope */
     map.on('load', function () {

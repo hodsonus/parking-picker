@@ -119,7 +119,7 @@
                <b> Allowed Decal(s):</b>
                <hr>
                <ul>
-                 <li> {{popupInfo.properties.decalRestriction}} </li>
+                 <li ng-repeat="restriction in getDecalsForRestriction(popupInfo.properties.decalRestriction)"> {{restriction}} </li>
               </ul>
               <br>
               <b> Updated At:</b>
