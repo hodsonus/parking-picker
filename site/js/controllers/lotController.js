@@ -110,10 +110,10 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
 
           map.on('click', SCOOTERS_LAYER_NAME, function (e) {
 
-            //bind info to the scope
+            // bind info to the scope
             map.queryRenderedFeatures(e.point).forEach(function (entry) {
               if (entry.layer.source === 'scootersLots') {
-                 $scope.updatepopup(entry);
+                $scope.updatepopup(entry);
               }
             });
 
@@ -156,7 +156,6 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
           });
           // Add zoom and rotation controls to the map.
           map.addControl(new mapboxgl.NavigationControl());
-          console.log(lotArray);
 
           // Change the cursor to a pointer when the mouse is over the states layer.
           map.on('mouseenter', LOTS_LAYER_NAME, function () {
@@ -239,7 +238,6 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
     }, true);
 
     $scope.updateMapLayer = function () {
-      console.log('databefore', $scope.lots);
       var data = {};
       Object.assign(data, $scope.lots);
       data.features = filterLots(data.features, $scope.selection);
@@ -271,20 +269,19 @@ angular.module('lots').controller('LotsController', ['$scope', 'Lots', 'filterFi
       var id = $scope.popupInfo.properties.officialId;
 
       // post to the API
-      Lots.postFullness(currFullness, id).then(function successCallback() {
-        console.log("Lot fullness posted successfully.");
+      Lots.postFullness(currFullness, id).then(function successCallback () {
         location.reload();
-      }, function errorCallback() {
+      }, function errorCallback () {
         console.log("An error occurred when posting the lot fullness.");
       });
     };
 
-    $scope.updatepopup = function(entry) {
+    $scope.updatepopup = function (entry) {
 
       $scope.popupInfo.properties = entry.properties; //updates the popup info
       var fullness = JSON.parse(entry.properties.history);
-      if (fullness.length === 0){
-        fullness.push({fullness: 0, time: "0000-00-00T00:00:00.000Z"});
+      if (fullness.length === 0) {
+        fullness.push({ fullness: 0, time: "0000-00-00T00:00:00.000Z" });
       }
       $scope.popupInfo.properties.fullness = fullness[fullness.length-1];
       $scope.popupInfo.properties.fullness.fullness = $scope.popupInfo.properties.fullness.fullness*10
